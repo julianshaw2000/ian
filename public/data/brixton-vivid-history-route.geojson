@@ -1,0 +1,24 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "brixton-vivid-history-route",
+        "name": "Vivid History: Brixton Walking Tour"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-0.1140, 51.4626],
+          [-0.1120, 51.4621],
+          [-0.1127, 51.4635],
+          [-0.1125, 51.4629],
+          [-0.1121, 51.4615]
+        ]
+      }
+    }
+  ]
+}
+
+

@@ -1,0 +1,14 @@
+{
+  "id": "brixton-vivid-history",
+  "title": "Vivid History: Brixton Walking Tour",
+  "distanceKm": 3.1,
+  "durationMinutes": 75,
+  "price": "£7.99",
+  "languageOptions": ["en"],
+  "routeGeoJsonUrl": "/data/brixton-vivid-history-route.geojson",
+  "coverImages": [
+    "/assets/brixton/brixton-cover-1.jpg"
+  ]
+}
+
+

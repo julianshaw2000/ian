@@ -1,0 +1,62 @@
+{
+  "$schema": "./node_modules/@angular/service-worker/config/schema.json",
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "resources": {
+        "files": [
+          "/favicon.ico",
+          "/index.csr.html",
+          "/index.html",
+          "/manifest.webmanifest",
+          "/*.css",
+          "/*.js"
+        ]
+      }
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
+        ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "tour-data",
+      "urls": [
+        "/data/london-vivid-history-tour.json",
+        "/data/london-vivid-history-route.geojson",
+        "/data/london-vivid-history-pois.json",
+        "/data/brixton-vivid-history-tour.json",
+        "/data/brixton-vivid-history-route.geojson",
+        "/data/brixton-vivid-history-pois.json"
+      ],
+      "cacheConfig": {
+        "strategy": "performance",
+        "maxSize": 20,
+        "maxAge": "7d",
+        "timeout": "5s"
+      }
+    },
+    {
+      "name": "audio",
+      "urls": [
+        "/audio/london/.*",
+        "/audio/brixton/.*"
+      ],
+      "cacheConfig": {
+        "strategy": "performance",
+        "maxSize": 50,
+        "maxAge": "7d",
+        "timeout": "5s"
+      }
+    }
+  ]
+}

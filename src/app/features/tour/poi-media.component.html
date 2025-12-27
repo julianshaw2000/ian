@@ -1,0 +1,96 @@
+<div class="vh-poi-media" *ngIf="poi; else noPoi">
+  <div class="vh-poi-media__gallery" *ngIf="images().length">
+    <div class="vh-poi-media__image-wrapper">
+      <img
+        *ngIf="currentImage() as img"
+        [src]="img"
+        alt="{{ poi!.title }} image {{ activeImageIndex() + 1 }} of {{ images().length }}"
+      />
+      <button
+        mat-icon-button
+        type="button"
+        class="vh-poi-media__nav vh-poi-media__nav--prev"
+        *ngIf="hasMultipleImages()"
+        (click)="previousImage()"
+        aria-label="Previous image"
+      >
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        type="button"
+        class="vh-poi-media__nav vh-poi-media__nav--next"
+        *ngIf="hasMultipleImages()"
+        (click)="nextImage()"
+        aria-label="Next image"
+      >
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
+    <div class="vh-poi-media__counter">
+      <span>Image {{ activeImageIndex() + 1 }} of {{ images().length }}</span>
+    </div>
+  </div>
+
+  <div class="vh-poi-media__audio" *ngIf="audioUrl()">
+    <audio #audioRef [src]="audioUrl()" preload="metadata"></audio>
+
+    <div class="vh-poi-media__audio-controls">
+      <button
+        mat-icon-button
+        type="button"
+        (click)="seekBy(-15)"
+        aria-label="Back 15 seconds"
+      >
+        <mat-icon>replay_15</mat-icon>
+      </button>
+
+      <button
+        mat-fab
+        type="button"
+        color="primary"
+        (click)="togglePlay()"
+        aria-label="Toggle play pause"
+      >
+        <mat-icon *ngIf="!isPlaying(); else pauseIcon">play_arrow</mat-icon>
+        <ng-template #pauseIcon>
+          <mat-icon>pause</mat-icon>
+        </ng-template>
+      </button>
+
+      <button
+        mat-icon-button
+        type="button"
+        (click)="seekBy(15)"
+        aria-label="Forward 15 seconds"
+      >
+        <mat-icon>forward_15</mat-icon>
+      </button>
+    </div>
+
+    <div class="vh-poi-media__audio-timeline">
+      <span class="vh-poi-media__time">
+        {{ formatTime(currentTime()) }}
+      </span>
+      <input
+        type="range"
+        min="0"
+        [max]="duration() || 0"
+        [value]="currentTime()"
+        (input)="onScrubChange($event)"
+        aria-label="Audio position"
+      />
+      <span class="vh-poi-media__time">
+        {{ formatTime(duration()) }}
+      </span>
+    </div>
+  </div>
+</div>
+
+<ng-template #noPoi>
+  <p class="vh-poi-media__placeholder">
+    Media for this stop will appear here.
+  </p>
+</ng-template>
+
+

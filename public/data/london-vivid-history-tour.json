@@ -1,0 +1,15 @@
+{
+  "id": "london-vivid-history",
+  "title": "Vivid History: London Walking Tour",
+  "distanceKm": 4.2,
+  "durationMinutes": 90,
+  "price": "£9.99",
+  "languageOptions": ["en"],
+  "routeGeoJsonUrl": "/data/london-vivid-history-route.geojson",
+  "coverImages": [
+    "/assets/london/london-cover-1.jpg",
+    "/assets/london/london-cover-2.jpg"
+  ]
+}
+
+

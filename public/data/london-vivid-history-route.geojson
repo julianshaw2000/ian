@@ -1,0 +1,25 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "london-vivid-history-route",
+        "name": "Vivid History: London Walking Tour"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-0.1246, 51.5007],
+          [-0.1248, 51.4995],
+          [-0.1276, 51.5034],
+          [-0.1281, 51.508],
+          [-0.123, 51.5119],
+          [-0.1277, 51.5136]
+        ]
+      }
+    }
+  ]
+}
+
+

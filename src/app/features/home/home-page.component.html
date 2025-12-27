@@ -1,0 +1,62 @@
+<div class="vh-home">
+  <mat-toolbar color="primary" class="vh-home-toolbar">
+    <span class="vh-logo">Vivid History</span>
+  </mat-toolbar>
+
+  <main class="vh-home-main">
+    <section class="vh-hero-card">
+      <mat-card
+        class="vh-tour-card"
+        *ngFor="let tour of tours"
+      >
+        <mat-card-header>
+          <div mat-card-avatar class="vh-tour-avatar"></div>
+          <mat-card-title>{{ tour.title }}</mat-card-title>
+          <mat-card-subtitle>
+            {{ locationLabel(tour.id) }}
+          </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <div class="vh-tour-metrics">
+            <div class="vh-metric">
+              <mat-icon>route</mat-icon>
+              <span>{{ tour.distanceKm }} km</span>
+            </div>
+            <div class="vh-metric">
+              <mat-icon>schedule</mat-icon>
+              <span>{{ tour.durationMinutes }} min</span>
+            </div>
+            <div class="vh-metric">
+              <mat-icon>payments</mat-icon>
+              <span>{{ tour.price }}</span>
+            </div>
+          </div>
+
+          <p class="vh-tagline">
+            A map-first, audio-guided walk through the neighbourhood’s most vivid stories.
+          </p>
+
+          <div class="vh-tags">
+            <span class="vh-tag" *ngFor="let tag of tags()">
+              {{ tag }}
+            </span>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions align="end">
+          <button
+            mat-stroked-button
+            color="primary"
+            [routerLink]="['/tour', tour.id]"
+          >
+            <mat-icon>play_arrow</mat-icon>
+            <span>Start tour</span>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </section>
+  </main>
+</div>
+
+

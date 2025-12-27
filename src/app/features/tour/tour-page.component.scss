@@ -1,0 +1,202 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+}
+
+.vh-tour {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.vh-tour-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(12px);
+}
+
+.vh-tour-header {
+  display: flex;
+  flex-direction: column;
+  margin-left: 0.5rem;
+}
+
+.vh-tour-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.vh-tour-meta {
+  display: flex;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+  opacity: 0.85;
+}
+
+.vh-toolbar-spacer {
+  flex: 1;
+}
+
+.vh-tour-modes {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.5rem 0.75rem 0.25rem;
+  overflow-x: auto;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.vh-mode-chip {
+  border-radius: 999px;
+  text-transform: none;
+  padding-inline: 0.6rem;
+}
+
+.vh-mode-chip mat-icon {
+  margin-right: 0.25rem;
+}
+
+.vh-mode-chip-active {
+  background-color: rgba(25, 118, 210, 0.12);
+}
+
+.vh-tour-main {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0.75rem 3.5rem;
+}
+
+.vh-split-view {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.vh-map-pane {
+  flex: 1;
+  min-height: 40vh;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top, rgba(25, 118, 210, 0.18), rgba(13, 71, 161, 0.7));
+}
+
+.vh-map-placeholder {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  text-align: center;
+  padding: 1rem;
+}
+
+.vh-map-placeholder mat-icon {
+  font-size: 2.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.vh-poi-pane {
+  border-radius: 1.5rem;
+  background-color: var(--mat-sys-surface-container-high, #ffffff);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.25);
+  padding: 1rem 1.25rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.vh-poi-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.vh-poi-header h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.vh-poi-subtitle {
+  margin: 0.15rem 0 0;
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.vh-poi-index {
+  margin: 0.25rem 0 0;
+  font-size: 0.8rem;
+  opacity: 0.85;
+}
+
+.vh-poi-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.vh-poi-body {
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.vh-mode-full {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1rem;
+}
+
+.vh-mode-full--map .vh-map-placeholder--full {
+  border-radius: 1.5rem;
+}
+
+.vh-help {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.vh-help h2 {
+  margin-top: 0;
+}
+
+.vh-help ul {
+  padding-left: 1.1rem;
+}
+
+.vh-home-fab {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 30;
+}
+
+@media (min-width: 768px) {
+  .vh-tour-main {
+    padding: 1rem 2rem 3.5rem;
+  }
+
+  .vh-split-view {
+    flex-direction: row;
+  }
+
+  .vh-map-pane {
+    flex: 1.2;
+  }
+
+  .vh-poi-pane {
+    flex: 1;
+  }
+}
+
+
