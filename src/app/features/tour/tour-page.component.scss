@@ -104,36 +104,71 @@
 
 .vh-poi-pane {
   border-radius: 1.5rem;
-  background-color: var(--mat-sys-surface-container-high, #ffffff);
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.25);
-  padding: 1rem 1.25rem 1.25rem;
+  background: radial-gradient(circle at top, #020617, #020617);
+  color: #e5e7eb;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.5);
+  padding: 0.75rem 0.75rem 1.25rem;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  max-height: 60vh;
+  overflow-y: auto;
 }
 
 .vh-poi-header {
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
   gap: 0.75rem;
-  align-items: flex-start;
+  align-items: stretch;
 }
 
-.vh-poi-header h2 {
+.vh-poi-hero {
+  flex: 1;
+}
+
+.vh-poi-hero__image-wrapper {
+  position: relative;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  min-height: 130px;
+  background-color: #020617;
+}
+
+.vh-poi-hero__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.8);
+}
+
+.vh-poi-hero__gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent 55%);
+}
+
+.vh-poi-hero__content {
+  position: absolute;
+  inset-inline: 0.85rem;
+  bottom: 0.75rem;
+}
+
+.vh-poi-hero__content h2 {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
 .vh-poi-subtitle {
-  margin: 0.15rem 0 0;
+  margin: 0.25rem 0 0;
   font-size: 0.8rem;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 .vh-poi-index {
   margin: 0.25rem 0 0;
   font-size: 0.8rem;
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 .vh-poi-nav {
@@ -141,24 +176,34 @@
   flex-wrap: wrap;
   gap: 0.5rem;
   justify-content: flex-end;
+  align-items: center;
 }
 
 .vh-poi-body {
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   line-height: 1.6;
+  padding-top: 0.5rem;
+}
+
+.vh-poi-body p {
+  margin: 0 0 0.75rem;
 }
 
 .vh-mode-full {
   flex: 1;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 1rem;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: 1rem 0.75rem 3.5rem;
 }
 
 .vh-mode-full--map .vh-map-placeholder--full {
   border-radius: 1.5rem;
+}
+
+.vh-mode-full--gallery {
+  padding-inline: 0.75rem;
 }
 
 .vh-help {
@@ -181,6 +226,15 @@
   z-index: 30;
 }
 
+.vh-next-cta {
+  margin-top: 1rem;
+  width: 100%;
+  border-radius: 999px;
+  padding-block: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
 @media (min-width: 768px) {
   .vh-tour-main {
     padding: 1rem 2rem 3.5rem;
@@ -196,6 +250,7 @@
 
   .vh-poi-pane {
     flex: 1;
+    max-height: none;
   }
 }
 

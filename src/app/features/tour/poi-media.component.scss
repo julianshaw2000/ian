@@ -53,6 +53,16 @@
   gap: 0.35rem;
 }
 
+.vh-poi-media__audio-shell {
+  position: sticky;
+  bottom: 0;
+  padding-top: 0.75rem;
+  margin-top: 0.5rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+  backdrop-filter: blur(12px);
+  border-radius: 1rem 1rem 0 0;
+}
+
 .vh-poi-media__audio-controls {
   display: flex;
   align-items: center;
@@ -68,11 +78,14 @@
 
 .vh-poi-media__audio-timeline input[type='range'] {
   flex: 1;
+  accent-color: var(--mat-sys-primary, #f59e0b);
+  height: 4px;
 }
 
 .vh-poi-media__time {
   font-size: 0.75rem;
-  opacity: 0.8;
+  opacity: 0.9;
+  color: #e5e7eb;
 }
 
 .vh-poi-media__placeholder {

@@ -12,7 +12,6 @@ import {
   ViewChild,
   signal
 } from '@angular/core';
-import { NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import type { Map, Marker } from 'maplibre-gl';
@@ -27,7 +26,7 @@ const DEFAULT_STYLE_URL = 'https://demotiles.maplibre.org/style.json';
 @Component({
   selector: 'app-map-canvas',
   standalone: true,
-  imports: [NgIf, MatButtonModule, MatIconModule],
+  imports: [MatButtonModule, MatIconModule],
   templateUrl: './map-canvas.component.html',
   styleUrls: ['./map-canvas.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

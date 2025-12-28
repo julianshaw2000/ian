@@ -1,11 +1,6 @@
 <div class="vh-tour">
   <mat-toolbar color="primary" class="vh-tour-toolbar">
-    <button
-      mat-icon-button
-      type="button"
-      (click)="goHome()"
-      aria-label="Back to home"
-    >
+    <button mat-icon-button type="button" (click)="goHome()" aria-label="Back to home">
       <mat-icon>arrow_back</mat-icon>
     </button>
 
@@ -24,19 +19,12 @@
 
     <span class="vh-toolbar-spacer"></span>
 
-    <button
-      mat-icon-button
-      type="button"
-      aria-label="Share tour"
-    >
+    <button mat-icon-button type="button" aria-label="Share tour">
       <mat-icon>share</mat-icon>
     </button>
   </mat-toolbar>
 
-  <nav
-    class="vh-tour-modes"
-    aria-label="View modes"
-  >
+  <nav class="vh-tour-modes" aria-label="View modes">
     <button
       type="button"
       mat-button
@@ -82,40 +70,40 @@
     </button>
   </nav>
 
-  <main
-    class="vh-tour-main"
-    [ngSwitch]="mode()"
-  >
-    <section
-      *ngSwitchCase="'split'"
-      class="vh-split-view"
-    >
+  <main class="vh-tour-main" [ngSwitch]="mode()">
+    <section *ngSwitchCase="'split'" class="vh-split-view">
       <div class="vh-map-pane">
         <app-map-canvas
           [routeGeoJsonUrl]="tour.routeGeoJsonUrl"
           [pois]="poiStore.pois()"
-          [currentPoiId]="poiStore.currentPoi()?.id ?? null"
+          [currentPoiId]="poiStore.currentPoi() ? poiStore.currentPoi()!.id : null"
           [visitedIds]="poiStore.visitedIds()"
           (poiSelected)="poiStore.selectById($event.id)"
           aria-label="Map preview"
         />
       </div>
 
-      <section
-        class="vh-poi-pane"
-        aria-label="Point of interest details"
-      >
+      <section class="vh-poi-pane" aria-label="Point of interest details">
         <header class="vh-poi-header">
-          <div>
-            <h2>{{ poiStore.currentPoi()?.title ?? 'Loading stop' }}</h2>
-            <p class="vh-poi-subtitle">
-              {{ poiStore.currentPoi()?.address ?? '' }}
-            </p>
-            <p class="vh-poi-index" *ngIf="poiStore.pois().length">
-              Stop {{ poiStore.currentIndex() + 1 }} of {{ poiStore.pois().length }}
-            </p>
+          <div class="vh-poi-hero" *ngIf="poiStore.currentPoi() as poi">
+            <div class="vh-poi-hero__image-wrapper">
+              <img
+                src="/images/london.jpg"
+                class="vh-poi-hero__image"
+                alt="{{ poi.title }} header image"
+              />
+              <div class="vh-poi-hero__gradient"></div>
+              <div class="vh-poi-hero__content">
+                <h2>{{ poi.title }}</h2>
+                <p class="vh-poi-subtitle">
+                  {{ poi.address }}
+                </p>
+                <p class="vh-poi-index" *ngIf="poiStore.pois().length">
+                  Stop {{ poiStore.currentIndex() + 1 }} of {{ poiStore.pois().length }}
+                </p>
+              </div>
+            </div>
           </div>
-
           <div class="vh-poi-nav">
             <button
               mat-stroked-button
@@ -144,50 +132,46 @@
           <p *ngIf="poiStore.currentPoi() as poi">
             {{ poi.descriptionByLanguage['en'] }}
           </p>
-          <p *ngIf="!poiStore.currentPoi()">
-            Loading point of interest details…
-          </p>
+          <p *ngIf="!poiStore.currentPoi()">Loading point of interest details…</p>
 
-          <app-poi-media
-            [poi]="poiStore.currentPoi()"
-            mode="split"
-          />
+          <app-poi-media [poi]="poiStore.currentPoi()" mode="split" />
+
+          <button
+            mat-raised-button
+            color="primary"
+            type="button"
+            class="vh-next-cta"
+            *ngIf="nextPoiTitle() as nextTitle"
+            (click)="poiStore.next()"
+          >
+            NEXT: {{ nextTitle }}
+          </button>
         </div>
       </section>
     </section>
 
-    <section
-      *ngSwitchCase="'map'"
-      class="vh-mode-full vh-mode-full--map"
-    >
+    <section *ngSwitchCase="'map'" class="vh-mode-full vh-mode-full--map">
       <app-map-canvas
         [routeGeoJsonUrl]="tour.routeGeoJsonUrl"
         [pois]="poiStore.pois()"
-        [currentPoiId]="poiStore.currentPoi()?.id ?? null"
+        [currentPoiId]="poiStore.currentPoi() ? poiStore.currentPoi()!.id : null"
         [visitedIds]="poiStore.visitedIds()"
         (poiSelected)="poiStore.selectById($event.id)"
         aria-label="Full map navigation mode"
       />
     </section>
 
-    <section
-      *ngSwitchCase="'gallery'"
-      class="vh-mode-full"
-    >
-      <app-poi-media
-        [poi]="poiStore.currentPoi()"
-        mode="gallery"
-      />
+    <section *ngSwitchCase="'gallery'" class="vh-mode-full vh-mode-full--gallery">
+      <app-poi-media [poi]="poiStore.currentPoi()" mode="gallery" />
     </section>
 
-    <section
-      *ngSwitchCase="'help'"
-      class="vh-mode-full vh-help"
-    >
+    <section *ngSwitchCase="'help'" class="vh-mode-full vh-help">
       <h2>How this tour works</h2>
       <ul>
         <li>Follow the blue line on the map to stay on the route.</li>
-        <li>Green marker shows your current stop; orange markers are upcoming or previous stops.</li>
+        <li>
+          Green marker shows your current stop; orange markers are upcoming or previous stops.
+        </li>
         <li>Use Split view for a balance of map and story; switch to Map for pure navigation.</li>
         <li>Gallery highlights photos from each stop; audio will bring the stories to life.</li>
       </ul>
@@ -205,5 +189,3 @@
     <mat-icon>home</mat-icon>
   </button>
 </div>
-
-

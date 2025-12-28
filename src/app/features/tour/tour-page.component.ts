@@ -89,6 +89,17 @@ export class TourPageComponent implements OnInit {
     return this.mode() === value;
   }
 
+  protected nextPoiTitle(): string | null {
+    const pois = this.poiStore.pois();
+    const currentIndex = this.poiStore.currentIndex();
+
+    if (!pois.length || currentIndex < 0 || currentIndex >= pois.length - 1) {
+      return null;
+    }
+
+    return pois[currentIndex + 1]?.title ?? null;
+  }
+
   protected goHome(): void {
     void this.router.navigate(['/']);
   }

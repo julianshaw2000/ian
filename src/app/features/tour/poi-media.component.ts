@@ -6,9 +6,9 @@ import {
   ViewChild,
   signal,
   computed,
-  AfterViewInit
+  AfterViewInit,
 } from '@angular/core';
-import { NgIf, NgForOf } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { Poi } from '../../shared/models/tour.models';
@@ -18,10 +18,10 @@ type PoiMediaMode = 'split' | 'gallery';
 @Component({
   selector: 'app-poi-media',
   standalone: true,
-  imports: [NgIf, NgForOf, MatIconModule, MatButtonModule],
+  imports: [NgIf, MatIconModule, MatButtonModule],
   templateUrl: './poi-media.component.html',
   styleUrls: ['./poi-media.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PoiMediaComponent implements AfterViewInit {
   @Input() poi: Poi | null = null;
@@ -127,5 +127,3 @@ export class PoiMediaComponent implements AfterViewInit {
     return `${minutes}:${seconds}`;
   }
 }
-
-

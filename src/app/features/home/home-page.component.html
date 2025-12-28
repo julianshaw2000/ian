@@ -8,59 +8,77 @@
   </mat-toolbar>
 
   <main class="vh-home-main">
-    <section class="vh-hero-card" *ngIf="hasTours(); else loadingOrEmpty">
-      @for (tour of tours(); track tour.id) {
-      <mat-card class="vh-tour-card">
-        <mat-card-header>
-          <div mat-card-avatar class="vh-tour-avatar"></div>
-          <mat-card-title>{{ tour.title }}</mat-card-title>
-          <mat-card-subtitle>
-            {{ locationLabel(tour) }}
-          </mat-card-subtitle>
-        </mat-card-header>
+    <div class="vh-home-inner">
+      <section class="vh-home-header">
+        <h1 class="vh-home-title">City History Walks</h1>
+        <p class="vh-home-subtitle">
+          Immersive, audio-guided walking tours with live maps and offline access.
+        </p>
+      </section>
 
-        <mat-card-content>
-          <div class="vh-tour-metrics">
-            <div class="vh-metric">
-              <mat-icon>route</mat-icon>
-              <span>{{ tour.distance_km ?? 0 }} km</span>
-            </div>
-            <div class="vh-metric">
-              <mat-icon>schedule</mat-icon>
-              <span>{{ tour.duration_minutes ?? 0 }} min</span>
-            </div>
-            <div class="vh-metric">
-              <mat-icon>payments</mat-icon>
-              <span>
-                {{ (tour.price_cents ?? 0) / 100 | number : '1.0-2' }}
-                {{ tour.currency || 'GBP' }}
-              </span>
-            </div>
-          </div>
+      <section class="vh-filters-row" aria-label="Tour filters">
+        <button mat-stroked-button type="button" class="vh-filter-chip vh-filter-chip--active">
+          All walks
+        </button>
+        <button mat-stroked-button type="button" class="vh-filter-chip">Short walks</button>
+        <button mat-stroked-button type="button" class="vh-filter-chip">Under £15</button>
+      </section>
 
-          <p class="vh-tagline">
-            A map-first, audio-guided walk through the neighbourhood’s most vivid stories.
-          </p>
+      <section class="vh-hero-card" *ngIf="hasTours(); else loadingOrEmpty">
+        <div class="vh-tour-list">
+          @for (tour of tours(); track tour.id) {
+          <mat-card class="vh-tour-card">
+            <mat-card-header>
+              <div mat-card-avatar class="vh-tour-avatar"></div>
+              <mat-card-title>{{ tour.title }}</mat-card-title>
+              <mat-card-subtitle>
+                {{ locationLabel(tour) }}
+              </mat-card-subtitle>
+            </mat-card-header>
 
-          <div class="vh-tags">
-            @for (tag of tags(); track tag) {
-            <span class="vh-tag">
-              {{ tag }}
-            </span>
-            }
-          </div>
-        </mat-card-content>
+            <mat-card-content>
+              <div class="vh-tour-metrics">
+                <div class="vh-metric">
+                  <mat-icon>route</mat-icon>
+                  <span>{{ tour.distance_km ?? 0 }} km</span>
+                </div>
+                <div class="vh-metric">
+                  <mat-icon>schedule</mat-icon>
+                  <span>{{ tour.duration_minutes ?? 0 }} min</span>
+                </div>
+                <div class="vh-metric">
+                  <mat-icon>payments</mat-icon>
+                  <span>
+                    {{ (tour.price_cents ?? 0) / 100 | number : '1.0-2' }}
+                    {{ tour.currency || 'GBP' }}
+                  </span>
+                </div>
+              </div>
 
-        <mat-card-actions align="end">
-          <button mat-stroked-button color="primary" [routerLink]="['/tour', tour.id]">
-            <mat-icon>play_arrow</mat-icon>
-            <span>Start tour</span>
-          </button>
-        </mat-card-actions>
-      </mat-card>
-      <br />
-      }
-    </section>
+              <p class="vh-tagline">
+                A map-first, audio-guided walk through the neighbourhood’s most vivid stories.
+              </p>
+
+              <div class="vh-tags">
+                @for (tag of tags(); track tag) {
+                <span class="vh-tag">
+                  {{ tag }}
+                </span>
+                }
+              </div>
+            </mat-card-content>
+
+            <mat-card-actions align="end">
+              <button mat-stroked-button color="primary" [routerLink]="['/tour', tour.id]">
+                <mat-icon>play_arrow</mat-icon>
+                <span>Start tour</span>
+              </button>
+            </mat-card-actions>
+          </mat-card>
+          }
+        </div>
+      </section>
+    </div>
   </main>
 </div>
 
