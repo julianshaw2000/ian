@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { from, map, Observable } from 'rxjs';
 
@@ -66,6 +66,40 @@ export class SupabaseToursService {
         return (data as SupabaseTour) ?? null;
       })
     );
+  }
+
+  getAllTours(): Observable<SupabaseTour[]> {
+    return from(
+      this.client
+        .from('tours')
+        .select(
+          'id, title, location, distance_km, duration_minutes, price_cents, currency, route_url, is_published'
+        )
+        .order('created_at', { ascending: false })
+    ).pipe(
+      map(({ data, error }) => {
+        if (error) {
+          return [];
+        }
+        return (data as SupabaseTour[]) ?? [];
+      })
+    );
+  }
+
+  async upsertTour(tour: SupabaseTour): Promise<{ error?: string }> {
+    const { error } = await this.client.from('tours').upsert(tour, { onConflict: 'id' });
+    if (error) {
+      return { error: error.message };
+    }
+    return {};
+  }
+
+  async deleteTour(id: string): Promise<{ error?: string }> {
+    const { error } = await this.client.from('tours').delete().eq('id', id);
+    if (error) {
+      return { error: error.message };
+    }
+    return {};
   }
 }
 

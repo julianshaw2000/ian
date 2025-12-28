@@ -7,7 +7,7 @@ import { OfflineToursService } from './shared/state/offline-tours.service';
   imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
   constructor(offlineTours: OfflineToursService) {

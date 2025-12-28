@@ -28,6 +28,11 @@ export const routes: Routes = [
     canActivate: [adminAuthGuard]
   },
   {
+    path: 'admin/tours',
+    redirectTo: 'admin/dashboard',
+    pathMatch: 'full'
+  },
+  {
     path: '**',
     redirectTo: ''
   }

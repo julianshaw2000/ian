@@ -1,0 +1,140 @@
+<div class="vh-admin-shell">
+  <mat-toolbar color="primary" class="vh-admin-toolbar">
+    <span class="vh-admin-title">
+      <mat-icon>map</mat-icon>
+      <span>Tours manager</span>
+    </span>
+
+    <span class="vh-admin-toolbar-spacer"></span>
+
+    <a mat-button routerLink="/admin/dashboard">
+      <mat-icon>dashboard</mat-icon>
+      <span>Dashboard</span>
+    </a>
+
+    <a mat-button routerLink="/">
+      <mat-icon>home</mat-icon>
+      <span>Back to app</span>
+    </a>
+  </mat-toolbar>
+
+  <main class="vh-admin-main">
+    <section class="vh-admin-layout">
+      <mat-card class="vh-admin-list">
+        <mat-card-header>
+          <mat-card-title>Existing tours</mat-card-title>
+          <mat-card-subtitle>Select a tour to edit or create a new one</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <button mat-stroked-button color="primary" (click)="newTour()">
+            <mat-icon>add</mat-icon>
+            <span>New tour</span>
+          </button>
+
+          <ul class="vh-admin-tours">
+            <li *ngFor="let tour of tours()">
+              <button
+                mat-button
+                type="button"
+                (click)="editTour(tour)"
+                [class.vh-admin-tours-selected]="tour.id === selectedId()"
+              >
+                <span class="vh-admin-tour-title">{{ tour.title }}</span>
+                <span class="vh-admin-tour-meta">
+                  {{ tour.location || 'Unknown location' }} ·
+                  {{ tour.distance_km ?? 0 }} km ·
+                  {{ tour.duration_minutes ?? 0 }} min
+                  <span *ngIf="tour.is_published">· Published</span>
+                  <span *ngIf="!tour.is_published">· Draft</span>
+                </span>
+              </button>
+
+              <button
+                mat-icon-button
+                color="warn"
+                type="button"
+                (click)="delete(tour)"
+                aria-label="Delete tour"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </li>
+          </ul>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="vh-admin-form">
+        <mat-card-header>
+          <mat-card-title>{{ isEditingExisting() ? 'Edit tour' : 'Create tour' }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <form [formGroup]="form" (ngSubmit)="save()">
+            <div class="vh-admin-form-grid">
+              <mat-form-field appearance="outline">
+                <mat-label>Tour ID</mat-label>
+                <input matInput formControlName="id" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Title</mat-label>
+                <input matInput formControlName="title" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Location</mat-label>
+                <input matInput formControlName="location" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Distance (km)</mat-label>
+                <input matInput type="number" formControlName="distance_km" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Duration (minutes)</mat-label>
+                <input matInput type="number" formControlName="duration_minutes" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Price (pence)</mat-label>
+                <input matInput type="number" formControlName="price_cents" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Currency</mat-label>
+                <input matInput formControlName="currency" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="vh-admin-form-full">
+                <mat-label>Route URL</mat-label>
+                <input matInput formControlName="route_url" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="vh-admin-form-full">
+                <mat-label>Published (true/false)</mat-label>
+                <input matInput formControlName="is_published" />
+              </mat-form-field>
+            </div>
+
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              class="vh-admin-save"
+              [disabled]="saving"
+            >
+              <mat-icon>save</mat-icon>
+              <span>Save</span>
+            </button>
+          </form>
+
+          <p *ngIf="errorMessage" class="vh-admin-error">
+            {{ errorMessage }}
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </section>
+  </main>
+</div>
+
+
