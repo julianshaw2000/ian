@@ -5,6 +5,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { BRIXTON_TOUR_ID, LONDON_TOUR_ID, getPoisForTour, getTourById } from '../../shared/data/sample-tour';
+import { SupabaseToursService } from '../../shared/services/supabase-tours.service';
 import { PoiStore } from '../../shared/state/poi.store';
 import { MapCanvasComponent } from './map-canvas.component';
 import { PoiMediaComponent } from './poi-media.component';
@@ -38,24 +39,33 @@ export class TourPageComponent implements OnInit {
   constructor(
     private readonly router: Router,
     private readonly route: ActivatedRoute,
-    protected readonly poiStore: PoiStore
-  ) {
-  }
+    protected readonly poiStore: PoiStore,
+    private readonly toursService: SupabaseToursService
+  ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
       const id = params.get('id');
       const tourId = id ?? LONDON_TOUR_ID;
-      const tour = getTourById(tourId);
-      const pois = getPoisForTour(tourId);
 
-      if (!tour || pois.length === 0) {
-        void this.router.navigate(['/'], { replaceUrl: true });
-        return;
-      }
+      // Guard: only allow navigating to tours which are marked as published in Supabase.
+      this.toursService.getPublishedTourById(tourId).subscribe((remoteTour) => {
+        if (!remoteTour) {
+          void this.router.navigate(['/'], { replaceUrl: true });
+          return;
+        }
 
-      this.tour = tour;
-      this.poiStore.loadTour(tour, pois);
+        const tour = getTourById(tourId);
+        const pois = getPoisForTour(tourId);
+
+        if (!tour || pois.length === 0) {
+          void this.router.navigate(['/'], { replaceUrl: true });
+          return;
+        }
+
+        this.tour = tour;
+        this.poiStore.loadTour(tour, pois);
+      });
     });
   }
 

@@ -5,7 +5,7 @@
       "type": "Feature",
       "properties": {
         "id": "brixton-vivid-history-route",
-        "name": "Vivid History: Brixton Walking Tour"
+        "name": "CityHistoryWalks: Brixton Walking Tour"
       },
       "geometry": {
         "type": "LineString",

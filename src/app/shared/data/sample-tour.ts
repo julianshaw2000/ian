@@ -5,7 +5,7 @@ export const BRIXTON_TOUR_ID = 'brixton-vivid-history';
 
 export const LONDON_TOUR: Tour = {
   id: LONDON_TOUR_ID,
-  title: 'Vivid History: London Walking Tour',
+  title: 'CityHistoryWalks: London Walking Tour',
   distanceKm: 4.2,
   durationMinutes: 90,
   price: '£9.99',
@@ -139,7 +139,7 @@ export const LONDON_POIS: Poi[] = [
 
 export const BRIXTON_TOUR: Tour = {
   id: BRIXTON_TOUR_ID,
-  title: 'Vivid History: Brixton Walking Tour',
+  title: 'CityHistoryWalks: Brixton Walking Tour',
   distanceKm: 3.1,
   durationMinutes: 75,
   price: '£7.99',

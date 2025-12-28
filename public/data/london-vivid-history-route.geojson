@@ -5,7 +5,7 @@
       "type": "Feature",
       "properties": {
         "id": "london-vivid-history-route",
-        "name": "Vivid History: London Walking Tour"
+        "name": "CityHistoryWalks: London Walking Tour"
       },
       "geometry": {
         "type": "LineString",

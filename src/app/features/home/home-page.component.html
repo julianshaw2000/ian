@@ -1,19 +1,20 @@
 <div class="vh-home">
   <mat-toolbar color="primary" class="vh-home-toolbar">
-    <span class="vh-logo">Vivid History</span>
+    <span class="vh-logo">City History Walks</span>
+    <span class="vh-toolbar-spacer"></span>
+    <button mat-icon-button [routerLink]="['/admin/dashboard']" aria-label="Admin">
+      <mat-icon>admin_panel_settings</mat-icon>
+    </button>
   </mat-toolbar>
 
   <main class="vh-home-main">
-    <section class="vh-hero-card">
-      <mat-card
-        class="vh-tour-card"
-        *ngFor="let tour of tours"
-      >
+    <section class="vh-hero-card" *ngIf="hasTours(); else loadingOrEmpty">
+      <mat-card class="vh-tour-card" *ngFor="let tour of tours()">
         <mat-card-header>
           <div mat-card-avatar class="vh-tour-avatar"></div>
           <mat-card-title>{{ tour.title }}</mat-card-title>
           <mat-card-subtitle>
-            {{ locationLabel(tour.id) }}
+            {{ locationLabel(tour) }}
           </mat-card-subtitle>
         </mat-card-header>
 
@@ -21,15 +22,18 @@
           <div class="vh-tour-metrics">
             <div class="vh-metric">
               <mat-icon>route</mat-icon>
-              <span>{{ tour.distanceKm }} km</span>
+              <span>{{ tour.distance_km ?? 0 }} km</span>
             </div>
             <div class="vh-metric">
               <mat-icon>schedule</mat-icon>
-              <span>{{ tour.durationMinutes }} min</span>
+              <span>{{ tour.duration_minutes ?? 0 }} min</span>
             </div>
             <div class="vh-metric">
               <mat-icon>payments</mat-icon>
-              <span>{{ tour.price }}</span>
+              <span>
+                {{ (tour.price_cents ?? 0) / 100 | number : '1.0-2' }}
+                {{ tour.currency || 'GBP' }}
+              </span>
             </div>
           </div>
 
@@ -45,11 +49,7 @@
         </mat-card-content>
 
         <mat-card-actions align="end">
-          <button
-            mat-stroked-button
-            color="primary"
-            [routerLink]="['/tour', tour.id]"
-          >
+          <button mat-stroked-button color="primary" [routerLink]="['/tour', tour.id]">
             <mat-icon>play_arrow</mat-icon>
             <span>Start tour</span>
           </button>
@@ -59,4 +59,6 @@
   </main>
 </div>
 
-
+<ng-template #loadingOrEmpty>
+  <p class="vh-home-empty">Tours are loading or not available right now.</p>
+</ng-template>

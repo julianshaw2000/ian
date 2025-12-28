@@ -1,6 +1,6 @@
 {
-  "name": "vivid-history",
-  "short_name": "vivid-history",
+  "name": "CityHistoryWalks",
+  "short_name": "CityHistoryWalks",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
