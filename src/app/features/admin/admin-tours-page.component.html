@@ -166,6 +166,27 @@
               <mat-icon>save</mat-icon>
               <span>Save</span>
             </button>
+
+            <div class="vh-admin-json-row">
+              <button
+                mat-stroked-button
+                type="button"
+                (click)="exportJson()"
+                [disabled]="!selectedId()"
+              >
+                <mat-icon>download</mat-icon>
+                <span>Export JSON</span>
+              </button>
+
+              <label class="vh-admin-upload-label">
+                Import JSON
+                <input
+                  type="file"
+                  accept="application/json"
+                  (change)="onImportJson($event)"
+                />
+              </label>
+            </div>
           </form>
 
           <p *ngIf="errorMessage" class="vh-admin-error">

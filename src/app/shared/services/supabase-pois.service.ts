@@ -6,7 +6,7 @@ import { Poi } from '../models/tour.models';
 const SUPABASE_URL = 'https://vkllskiarxtcwedrwrys.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_LAhbVtMIVk4b861pyPZkiw_UQAO4Exp';
 
-interface SupabasePoiRow {
+export interface SupabasePoiRow {
   id: string;
   tour_id: string;
   order_index: number;
@@ -20,7 +20,7 @@ interface SupabasePoiRow {
   poi_media?: SupabasePoiMediaRow[];
 }
 
-interface SupabasePoiMediaRow {
+export interface SupabasePoiMediaRow {
   id: string;
   media_type: string;
   url: string;

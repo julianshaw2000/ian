@@ -10,7 +10,7 @@ import {
   Output,
   SimpleChanges,
   ViewChild,
-  signal
+  signal,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -29,7 +29,7 @@ const DEFAULT_STYLE_URL = 'https://demotiles.maplibre.org/style.json';
   imports: [MatButtonModule, MatIconModule],
   templateUrl: './map-canvas.component.html',
   styleUrls: ['./map-canvas.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapCanvasComponent implements AfterViewInit, OnChanges {
   @ViewChild('mapContainer', { static: true })
@@ -49,10 +49,7 @@ export class MapCanvasComponent implements AfterViewInit, OnChanges {
   private markers: Marker[] = [];
   private userMarker: Marker | null = null;
 
-  constructor(
-    private readonly mapService: MapService,
-    private readonly destroyRef: DestroyRef
-  ) {}
+  constructor(private readonly mapService: MapService, private readonly destroyRef: DestroyRef) {}
 
   ngAfterViewInit(): void {
     this.initMap();
@@ -91,7 +88,7 @@ export class MapCanvasComponent implements AfterViewInit, OnChanges {
       container: this.mapContainer.nativeElement,
       center,
       zoom: 14,
-      styleUrl: this.styleUrl
+      styleUrl: this.styleUrl,
     });
 
     fromEvent(this.map, 'load')
@@ -127,10 +124,7 @@ export class MapCanvasComponent implements AfterViewInit, OnChanges {
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        const coords: [number, number] = [
-          position.coords.longitude,
-          position.coords.latitude
-        ];
+        const coords: [number, number] = [position.coords.longitude, position.coords.latitude];
         this.hasUserLocation.set(true);
         if (this.userMarker) {
           this.userMarker.setLngLat(coords);
@@ -154,5 +148,3 @@ export class MapCanvasComponent implements AfterViewInit, OnChanges {
     this.markers = [];
   }
 }
-
-

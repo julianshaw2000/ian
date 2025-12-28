@@ -10,10 +10,18 @@ import { SupabaseToursService, SupabaseTour } from '../../shared/services/supaba
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule, RouterLink, NgIf, DecimalPipe],
+  imports: [
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    RouterLink,
+    NgIf,
+    DecimalPipe,
+  ],
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePageComponent {
   protected readonly tours = signal<SupabaseTour[] | null>(null);
@@ -32,5 +40,3 @@ export class HomePageComponent {
     return `${tour.location} · English`;
   };
 }
-
-

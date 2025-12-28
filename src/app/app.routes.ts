@@ -12,44 +12,44 @@ export const routes: Routes = [
   {
     path: '',
     component: HomePageComponent,
-    title: 'CityHistoryWalks'
+    title: 'CityHistoryWalks',
   },
   {
     path: 'tour/:id',
     component: TourPageComponent,
-    title: 'Tour · CityHistoryWalks'
+    title: 'Tour · CityHistoryWalks',
   },
   {
     path: 'admin/login',
     component: AdminLoginPageComponent,
-    title: 'Admin Login · CityHistoryWalks'
+    title: 'Admin Login · CityHistoryWalks',
   },
   {
     path: 'admin/dashboard',
     component: AdminDashboardPageComponent,
     title: 'Admin · CityHistoryWalks',
-    canActivate: [adminAuthGuard]
+    canActivate: [adminAuthGuard],
   },
   {
     path: 'admin/tours',
     component: AdminToursPageComponent,
     title: 'Admin Tours · CityHistoryWalks',
-    canActivate: [adminAuthGuard]
+    canActivate: [adminAuthGuard],
   },
   {
     path: 'admin/tours/:id/pois',
     component: AdminPoisPageComponent,
     title: 'Admin Stops · CityHistoryWalks',
-    canActivate: [adminAuthGuard]
+    canActivate: [adminAuthGuard],
   },
   {
     path: 'admin/pois/:id/media',
     component: AdminPoiMediaPageComponent,
     title: 'Admin Media · CityHistoryWalks',
-    canActivate: [adminAuthGuard]
+    canActivate: [adminAuthGuard],
   },
   {
     path: '**',
-    redirectTo: ''
-  }
+    redirectTo: '',
+  },
 ];
