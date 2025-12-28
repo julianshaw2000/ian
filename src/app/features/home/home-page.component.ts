@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
-import { DecimalPipe, NgForOf, NgIf } from '@angular/common';
+import { DecimalPipe, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,7 +10,7 @@ import { SupabaseToursService, SupabaseTour } from '../../shared/services/supaba
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule, RouterLink, NgForOf, NgIf, DecimalPipe],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule, RouterLink, NgIf, DecimalPipe],
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

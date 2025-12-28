@@ -11,6 +11,7 @@ export interface SupabaseTour {
   price_cents: number | null;
   currency: string | null;
   route_url: string | null;
+  cover_image_url: string | null;
   is_published: boolean;
 }
 
@@ -32,7 +33,7 @@ export class SupabaseToursService {
       this.client
         .from('tours')
         .select(
-          'id, title, location, distance_km, duration_minutes, price_cents, currency, route_url, is_published'
+          'id, title, location, distance_km, duration_minutes, price_cents, currency, route_url, cover_image_url, is_published'
         )
         .eq('is_published', true)
         .order('created_at', { ascending: false })
@@ -53,7 +54,7 @@ export class SupabaseToursService {
       this.client
         .from('tours')
         .select(
-          'id, title, location, distance_km, duration_minutes, price_cents, currency, route_url, is_published'
+          'id, title, location, distance_km, duration_minutes, price_cents, currency, route_url, cover_image_url, is_published'
         )
         .eq('id', id)
         .eq('is_published', true)
@@ -73,7 +74,7 @@ export class SupabaseToursService {
       this.client
         .from('tours')
         .select(
-          'id, title, location, distance_km, duration_minutes, price_cents, currency, route_url, is_published'
+          'id, title, location, distance_km, duration_minutes, price_cents, currency, route_url, cover_image_url, is_published'
         )
         .order('created_at', { ascending: false })
     ).pipe(

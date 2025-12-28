@@ -15,7 +15,7 @@ describe('CityHistoryWalks admin login', () => {
       .get('input[formcontrolname="password"]')
       .clear({ force: true })
       .type(password as string, { log: false, force: true });
-    cy.contains('button', 'Sign in').click();
+    cy.contains('button', 'Sign in').click({ force: true });
 
     cy.url().should('include', '/admin/dashboard');
     cy.contains('Admin · CityHistoryWalks').should('be.visible');

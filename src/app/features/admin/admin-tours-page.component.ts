@@ -7,8 +7,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { RouterLink } from '@angular/router';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { Router, RouterLink } from '@angular/router';
 import { SupabaseToursService, SupabaseTour } from '../../shared/services/supabase-tours.service';
+import { SupabaseAuthService } from '../../shared/services/supabase-auth.service';
+import { SupabaseMediaService } from '../../shared/services/supabase-media.service';
 
 @Component({
   selector: 'app-admin-tours-page',
@@ -23,6 +26,7 @@ import { SupabaseToursService, SupabaseTour } from '../../shared/services/supaba
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSlideToggleModule,
     RouterLink
   ],
   templateUrl: './admin-tours-page.component.html',
@@ -34,25 +38,31 @@ export class AdminToursPageComponent implements OnInit {
   readonly selectedId = signal<string | null>(null);
   readonly isEditingExisting = computed(() => !!this.selectedId());
 
-  readonly form = this.fb.nonNullable.group({
-    id: ['', [Validators.required]],
-    title: ['', [Validators.required]],
-    location: [''],
-    distance_km: [0],
-    duration_minutes: [0],
-    price_cents: [0],
-    currency: ['GBP'],
-    route_url: [''],
-    is_published: [false]
-  });
+  readonly form;
 
   saving = false;
   errorMessage: string | null = null;
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly toursService: SupabaseToursService
-  ) {}
+    private readonly toursService: SupabaseToursService,
+    private readonly mediaService: SupabaseMediaService,
+    private readonly auth: SupabaseAuthService,
+    private readonly router: Router
+  ) {
+    this.form = this.fb.nonNullable.group({
+      id: ['', [Validators.required]],
+      title: ['', [Validators.required]],
+      location: [''],
+      distance_km: [0],
+      duration_minutes: [0],
+      price_cents: [0],
+      currency: ['GBP'],
+      route_url: [''],
+      cover_image_url: [''],
+      is_published: [false]
+    });
+  }
 
   ngOnInit(): void {
     this.refresh();
@@ -75,13 +85,85 @@ export class AdminToursPageComponent implements OnInit {
       price_cents: 0,
       currency: 'GBP',
       route_url: '',
+      cover_image_url: '',
       is_published: false
     });
   }
 
   editTour(tour: SupabaseTour): void {
     this.selectedId.set(tour.id);
-    this.form.patchValue(tour);
+    this.form.patchValue({
+      ...tour,
+      location: tour.location ?? '',
+      distance_km: tour.distance_km ?? 0,
+      duration_minutes: tour.duration_minutes ?? 0,
+      price_cents: tour.price_cents ?? 0,
+      currency: tour.currency ?? 'GBP',
+      route_url: tour.route_url ?? '',
+      cover_image_url: tour.cover_image_url ?? '',
+      is_published: tour.is_published
+    });
+  }
+
+  async logout(): Promise<void> {
+    await this.auth.signOut();
+    await this.router.navigate(['/']);
+  }
+
+  async onCoverSelected(event: Event): Promise<void> {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) {
+      return;
+    }
+
+    const id = this.form.get('id')?.value;
+    if (!id) {
+      this.errorMessage = 'Please set a tour ID before uploading a cover image.';
+      input.value = '';
+      return;
+    }
+
+    this.saving = true;
+    this.errorMessage = null;
+    const result = await this.mediaService.uploadTourCoverImage(id, file);
+    this.saving = false;
+    input.value = '';
+
+    if (result.error || !result.url) {
+      this.errorMessage = result.error ?? 'Failed to upload cover image.';
+      return;
+    }
+
+    this.form.patchValue({ cover_image_url: result.url });
+  }
+
+  async onRouteSelected(event: Event): Promise<void> {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) {
+      return;
+    }
+
+    const id = this.form.get('id')?.value;
+    if (!id) {
+      this.errorMessage = 'Please set a tour ID before uploading a route file.';
+      input.value = '';
+      return;
+    }
+
+    this.saving = true;
+    this.errorMessage = null;
+    const result = await this.mediaService.uploadTourRouteGeoJson(id, file);
+    this.saving = false;
+    input.value = '';
+
+    if (result.error || !result.url) {
+      this.errorMessage = result.error ?? 'Failed to upload route file.';
+      return;
+    }
+
+    this.form.patchValue({ route_url: result.url });
   }
 
   async save(): Promise<void> {

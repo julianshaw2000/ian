@@ -3,6 +3,9 @@ import { HomePageComponent } from './features/home/home-page.component';
 import { TourPageComponent } from './features/tour/tour-page.component';
 import { AdminLoginPageComponent } from './features/admin/admin-login-page.component';
 import { AdminDashboardPageComponent } from './features/admin/admin-dashboard-page.component';
+import { AdminToursPageComponent } from './features/admin/admin-tours-page.component';
+import { AdminPoisPageComponent } from './features/admin/admin-pois-page.component';
+import { AdminPoiMediaPageComponent } from './features/admin/admin-poi-media-page.component';
 import { adminAuthGuard } from './shared/auth/admin-auth.guard';
 
 export const routes: Routes = [
@@ -29,8 +32,21 @@ export const routes: Routes = [
   },
   {
     path: 'admin/tours',
-    redirectTo: 'admin/dashboard',
-    pathMatch: 'full'
+    component: AdminToursPageComponent,
+    title: 'Admin Tours · CityHistoryWalks',
+    canActivate: [adminAuthGuard]
+  },
+  {
+    path: 'admin/tours/:id/pois',
+    component: AdminPoisPageComponent,
+    title: 'Admin Stops · CityHistoryWalks',
+    canActivate: [adminAuthGuard]
+  },
+  {
+    path: 'admin/pois/:id/media',
+    component: AdminPoiMediaPageComponent,
+    title: 'Admin Media · CityHistoryWalks',
+    canActivate: [adminAuthGuard]
   },
   {
     path: '**',

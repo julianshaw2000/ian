@@ -1,0 +1,162 @@
+<div class="vh-admin-shell">
+  <mat-toolbar color="primary" class="vh-admin-toolbar">
+    <span class="vh-admin-title">
+      <mat-icon>place</mat-icon>
+      <span>Stops manager</span>
+    </span>
+
+    <span class="vh-admin-toolbar-spacer"></span>
+
+    <a mat-button [routerLink]="['/admin/tours']">
+      <mat-icon>map</mat-icon>
+      <span>Tours</span>
+    </a>
+
+    <button mat-button type="button" (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+
+    <a mat-button routerLink="/">
+      <mat-icon>home</mat-icon>
+      <span>Back to app</span>
+    </a>
+  </mat-toolbar>
+
+  <main class="vh-admin-main">
+    <section class="vh-admin-layout">
+      <mat-card class="vh-admin-list">
+        <mat-card-header>
+          <mat-card-title>Stops for this tour</mat-card-title>
+          <mat-card-subtitle>Manage order, location, and visibility</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <button mat-stroked-button color="primary" (click)="newPoi()">
+            <mat-icon>add_location_alt</mat-icon>
+            <span>New stop</span>
+          </button>
+
+          <ul class="vh-admin-pois">
+            <li *ngFor="let poi of pois()">
+              <button
+                mat-button
+                type="button"
+                (click)="editPoi(poi)"
+                [class.vh-admin-pois-selected]="poi.id === selectedId()"
+              >
+                <span class="vh-admin-poi-title">
+                  {{ poi.order_index }}. {{ poi.title }}
+                </span>
+                <span class="vh-admin-poi-meta">
+                  {{ poi.address || 'No address' }} · Lat {{ poi.lat }} · Lng {{ poi.lng }}
+                  <span *ngIf="poi.is_published">· Published</span>
+                  <span *ngIf="!poi.is_published">· Draft</span>
+                </span>
+              </button>
+
+              <button
+                mat-icon-button
+                color="warn"
+                type="button"
+                (click)="delete(poi)"
+                aria-label="Delete POI"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+
+              <a
+                mat-icon-button
+                color="primary"
+                [routerLink]="['/admin/pois', poi.id, 'media']"
+                aria-label="Manage media"
+              >
+                <mat-icon>collections</mat-icon>
+              </a>
+            </li>
+          </ul>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="vh-admin-form">
+        <mat-card-header>
+          <mat-card-title>{{ isEditingExisting() ? 'Edit stop' : 'Create stop' }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <form [formGroup]="form" (ngSubmit)="save()">
+            <div class="vh-admin-form-grid">
+              <mat-form-field appearance="outline">
+                <mat-label>POI ID</mat-label>
+                <input matInput formControlName="id" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Title</mat-label>
+                <input matInput formControlName="title" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="vh-admin-form-full">
+                <mat-label>Address</mat-label>
+                <input matInput formControlName="address" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Order index</mat-label>
+                <input matInput type="number" formControlName="order_index" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Latitude</mat-label>
+                <input matInput type="number" formControlName="lat" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Longitude</mat-label>
+                <input matInput type="number" formControlName="lng" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="vh-admin-form-full">
+                <mat-label>Description</mat-label>
+                <textarea matInput rows="3" formControlName="description"></textarea>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="vh-admin-form-full">
+                <mat-label>Audio URL</mat-label>
+                <input matInput formControlName="audio_url" />
+              </mat-form-field>
+
+              <div class="vh-admin-form-full">
+                <label class="vh-admin-upload-label">
+                  Upload narration audio
+                  <input type="file" accept="audio/*" (change)="uploadAudio($event)" />
+                </label>
+              </div>
+
+              <div class="vh-admin-form-full vh-admin-toggle-row">
+                <mat-slide-toggle formControlName="is_published">
+                  Published
+                </mat-slide-toggle>
+              </div>
+            </div>
+
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              class="vh-admin-save"
+              [disabled]="saving"
+            >
+              <mat-icon>save</mat-icon>
+              <span>Save</span>
+            </button>
+          </form>
+
+          <p *ngIf="errorMessage" class="vh-admin-error">
+            {{ errorMessage }}
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </section>
+  </main>
+</div>
+
+

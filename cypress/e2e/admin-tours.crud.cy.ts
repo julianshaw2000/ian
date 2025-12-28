@@ -4,8 +4,7 @@ describe('CityHistoryWalks admin tours CRUD', () => {
 
   const shouldRun = Boolean(email && password);
 
-  // With the current routing, /admin/tours is a redirect alias for /admin/dashboard.
-  (shouldRun ? it : it.skip)('redirects /admin/tours to the admin dashboard after login', () => {
+  (shouldRun ? it : it.skip)('allows navigating to admin tours and selecting a tour', () => {
     // Login
     cy.visit('/admin/login');
     cy.get('input[formcontrolname="email"]').clear({ force: true }).type(email as string, {
@@ -15,13 +14,20 @@ describe('CityHistoryWalks admin tours CRUD', () => {
       .get('input[formcontrolname="password"]')
       .clear({ force: true })
       .type(password as string, { log: false, force: true });
-    cy.contains('button', 'Sign in').click();
+    cy.contains('button', 'Sign in').click({ force: true });
     cy.url().should('include', '/admin/dashboard');
 
-    // Navigate to /admin/tours and verify redirect to dashboard
-    cy.visit('/admin/tours');
-    cy.url().should('include', '/admin/dashboard');
-    cy.contains('Admin · CityHistoryWalks').should('be.visible');
+    // Use dashboard button to open tours manager
+    cy.contains('Open tours manager').click();
+    cy.url().should('include', '/admin/tours');
+
+    // Ensure at least one tour is present and selectable
+    cy.get('.vh-admin-tours button')
+      .first()
+      .click();
+
+    // After clicking a tour, the form should be populated with a non-empty title.
+    cy.get('input[formcontrolname="title"]').invoke('val').should('be.a', 'string').and('not.eq', '');
   });
 });
 
