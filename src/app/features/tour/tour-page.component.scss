@@ -79,7 +79,7 @@
 
 .vh-map-pane {
   flex: 1;
-  min-height: 40vh;
+  min-height: 42vh;
   border-radius: 1.25rem;
   overflow: hidden;
   background:
@@ -198,6 +198,10 @@
   padding: 1rem 0.75rem 3.5rem;
 }
 
+.vh-mode-full--map {
+  min-height: 60vh;
+}
+
 .vh-mode-full--map .vh-map-placeholder--full {
   border-radius: 1.5rem;
 }
@@ -251,6 +255,28 @@
   .vh-poi-pane {
     flex: 1;
     max-height: none;
+  }
+}
+
+@media (min-width: 960px) {
+  .vh-tour-main {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .vh-mode-full {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1280px) {
+  .vh-tour-main {
+    max-width: 1200px;
+  }
+
+  .vh-mode-full {
+    max-width: 960px;
   }
 }
 
