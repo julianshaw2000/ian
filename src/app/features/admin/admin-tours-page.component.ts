@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit, computed, signal } from '@angular/core';
-import { NgForOf, NgIf } from '@angular/common';
+import { NgForOf, NgIf, NgClass } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -12,7 +14,11 @@ import { Router, RouterLink } from '@angular/router';
 import { SupabaseToursService, SupabaseTour } from '../../shared/services/supabase-tours.service';
 import { SupabaseAuthService } from '../../shared/services/supabase-auth.service';
 import { SupabaseMediaService } from '../../shared/services/supabase-media.service';
-import { SupabasePoisService, SupabasePoiRow, SupabasePoiMediaRow } from '../../shared/services/supabase-pois.service';
+import {
+  SupabasePoisService,
+  SupabasePoiRow,
+  SupabasePoiMediaRow,
+} from '../../shared/services/supabase-pois.service';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
@@ -21,6 +27,7 @@ import { firstValueFrom } from 'rxjs';
   imports: [
     NgForOf,
     NgIf,
+    NgClass,
     ReactiveFormsModule,
     MatToolbarModule,
     MatButtonModule,
@@ -29,11 +36,12 @@ import { firstValueFrom } from 'rxjs';
     MatFormFieldModule,
     MatInputModule,
     MatSlideToggleModule,
-    RouterLink
+    MatTooltipModule,
+    RouterLink,
   ],
   templateUrl: './admin-tours-page.component.html',
   styleUrls: ['./admin-tours-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminToursPageComponent implements OnInit {
   readonly tours = signal<SupabaseTour[]>([]);
@@ -44,6 +52,7 @@ export class AdminToursPageComponent implements OnInit {
 
   saving = false;
   errorMessage: string | null = null;
+  isMobile = false;
 
   constructor(
     private readonly fb: FormBuilder,
@@ -51,6 +60,7 @@ export class AdminToursPageComponent implements OnInit {
     private readonly mediaService: SupabaseMediaService,
     private readonly auth: SupabaseAuthService,
     private readonly poisService: SupabasePoisService,
+    private readonly breakpointObserver: BreakpointObserver,
     private readonly router: Router
   ) {
     this.form = this.fb.nonNullable.group({
@@ -63,7 +73,7 @@ export class AdminToursPageComponent implements OnInit {
       currency: ['GBP'],
       route_url: [''],
       cover_image_url: [''],
-      is_published: [false]
+      is_published: [false],
     });
   }
 
@@ -89,7 +99,11 @@ export class AdminToursPageComponent implements OnInit {
       currency: 'GBP',
       route_url: '',
       cover_image_url: '',
-      is_published: false
+      is_published: false,
+    });
+
+    this.breakpointObserver.observe(['(max-width: 600px)']).subscribe((result) => {
+      this.isMobile = result.matches;
     });
   }
 
@@ -104,7 +118,7 @@ export class AdminToursPageComponent implements OnInit {
       currency: tour.currency ?? 'GBP',
       route_url: tour.route_url ?? '',
       cover_image_url: tour.cover_image_url ?? '',
-      is_published: tour.is_published
+      is_published: tour.is_published,
     });
   }
 
@@ -254,12 +268,12 @@ export class AdminToursPageComponent implements OnInit {
             type: 'Feature',
             geometry: {
               type: 'LineString',
-              coordinates: [] as number[][]
+              coordinates: [] as number[][],
             },
             properties: {
               name: tour.title,
-              route_url: tour.route_url ?? ''
-            }
+              route_url: tour.route_url ?? '',
+            },
           },
           covers: tour.cover_image_url
             ? [
@@ -267,10 +281,10 @@ export class AdminToursPageComponent implements OnInit {
                   role: 'primary',
                   file_name: this.extractFileName(tour.cover_image_url),
                   caption: '',
-                  credit: null
-                }
+                  credit: null,
+                },
               ]
-            : []
+            : [],
         },
         pois: poisWithMedia.map(({ poi, media }) => ({
           id: poi.id,
@@ -284,7 +298,7 @@ export class AdminToursPageComponent implements OnInit {
             language: 'en',
             hook: '',
             story_paragraphs: poi.description ? [poi.description] : [],
-            key_facts: []
+            key_facts: [],
           },
           media: {
             images: media
@@ -293,14 +307,14 @@ export class AdminToursPageComponent implements OnInit {
                 role: 'primary',
                 file_name: this.extractFileName(m.url),
                 caption: m.label ?? '',
-                credit: null
+                credit: null,
               })),
             audio: poi.audio_url
               ? {
                   file_name: this.extractFileName(poi.audio_url),
                   duration_seconds: 0,
                   language: 'en',
-                  notes: ''
+                  notes: '',
                 }
               : null,
             video: media
@@ -309,11 +323,11 @@ export class AdminToursPageComponent implements OnInit {
                 type: 'embedded',
                 url_or_file: m.url,
                 duration_seconds: 0,
-                caption: m.label ?? ''
+                caption: m.label ?? '',
               })),
-            links: []
-          }
-        }))
+            links: [],
+          },
+        })),
       };
 
       const json = JSON.stringify(exportPayload, null, 2);
@@ -359,7 +373,7 @@ export class AdminToursPageComponent implements OnInit {
           Array.isArray(tourJson.covers) && tourJson.covers.length > 0
             ? tourJson.covers[0].file_name ?? null
             : null,
-        is_published: tourJson.is_published ?? false
+        is_published: tourJson.is_published ?? false,
       };
 
       await this.toursService.upsertTour(supabaseTour);
@@ -380,7 +394,7 @@ export class AdminToursPageComponent implements OnInit {
           address: poiJson.address ?? null,
           description,
           audio_url: null,
-          is_published: poiJson.is_published ?? true
+          is_published: poiJson.is_published ?? true,
         };
 
         await this.poisService.upsertPoi(row);
@@ -402,5 +416,3 @@ export class AdminToursPageComponent implements OnInit {
     return idx >= 0 ? url.substring(idx + 1) : url;
   }
 }
-
-

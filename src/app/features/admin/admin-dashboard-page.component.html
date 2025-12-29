@@ -7,14 +7,12 @@
 
     <span class="vh-admin-toolbar-spacer"></span>
 
-    <button mat-button type="button" (click)="logout()">
+    <button mat-icon-button type="button" (click)="logout()" matTooltip="Logout">
       <mat-icon>logout</mat-icon>
-      <span>Logout</span>
     </button>
 
-    <a mat-button routerLink="/">
+    <a mat-icon-button routerLink="/" matTooltip="Back to app">
       <mat-icon>home</mat-icon>
-      <span>Back to app</span>
     </a>
   </mat-toolbar>
 
@@ -26,29 +24,28 @@
           <mat-card-subtitle>Manage what appears in the app</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-          <p *ngIf="tours().length === 0">
-            No tours loaded yet from Supabase.
-          </p>
+          <p *ngIf="tours().length === 0">No tours loaded yet from Supabase.</p>
           <ul *ngIf="tours().length > 0">
             <li *ngFor="let tour of tours()">
               <span class="vh-admin-tour-title">{{ tour.title }}</span>
               <span class="vh-admin-tour-meta">
-                {{ tour.location || 'Unknown location' }} ·
-                {{ tour.distance_km ?? 0 }} km ·
+                {{ tour.location || 'Unknown location' }} · {{ tour.distance_km ?? 0 }} km ·
                 {{ tour.duration_minutes ?? 0 }} min
               </span>
             </li>
           </ul>
         </mat-card-content>
         <mat-card-actions>
-          <a mat-stroked-button color="primary" routerLink="/admin/tours">
+          <a
+            mat-icon-button
+            color="primary"
+            routerLink="/admin/tours"
+            matTooltip="Open tours manager"
+          >
             <mat-icon>edit</mat-icon>
-            <span>Open tours manager</span>
           </a>
         </mat-card-actions>
       </mat-card>
     </section>
   </main>
 </div>
-
-

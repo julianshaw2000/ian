@@ -5,13 +5,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { SupabaseToursService, SupabaseTour } from '../../shared/services/supabase-tours.service';
 import { SupabaseAuthService } from '../../shared/services/supabase-auth.service';
 
 @Component({
   selector: 'app-admin-dashboard-page',
   standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule, RouterLink, NgForOf, NgIf],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule, MatTooltipModule, RouterLink, NgForOf, NgIf],
   templateUrl: './admin-dashboard-page.component.html',
   styleUrls: ['./admin-dashboard-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

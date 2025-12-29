@@ -156,4 +156,15 @@
   }
 }
 
+.vh-admin-button--mobile span {
+  display: inline;
+}
 
+@media (max-width: 600px) {
+  /* Hide text labels inside toolbar and primary action buttons on small screens */
+  .vh-admin-toolbar a.vh-admin-button--mobile span,
+  .vh-admin-toolbar button.vh-admin-button--mobile span,
+  .vh-admin-json-row button.vh-admin-button--mobile span {
+    display: none;
+  }
+}

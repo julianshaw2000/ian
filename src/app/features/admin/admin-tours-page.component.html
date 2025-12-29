@@ -7,17 +7,33 @@
 
     <span class="vh-admin-toolbar-spacer"></span>
 
-    <a mat-button routerLink="/admin/dashboard">
+    <a
+      mat-button
+      routerLink="/admin/dashboard"
+      [ngClass]="{ 'vh-admin-button--mobile': isMobile }"
+      matTooltip="Dashboard"
+    >
       <mat-icon>dashboard</mat-icon>
       <span>Dashboard</span>
     </a>
 
-    <button mat-button type="button" (click)="logout()">
+    <button
+      mat-button
+      type="button"
+      (click)="logout()"
+      [ngClass]="{ 'vh-admin-button--mobile': isMobile }"
+      matTooltip="Logout"
+    >
       <mat-icon>logout</mat-icon>
       <span>Logout</span>
     </button>
 
-    <a mat-button routerLink="/">
+    <a
+      mat-button
+      routerLink="/"
+      [ngClass]="{ 'vh-admin-button--mobile': isMobile }"
+      matTooltip="Back to app"
+    >
       <mat-icon>home</mat-icon>
       <span>Back to app</span>
     </a>
@@ -31,7 +47,13 @@
           <mat-card-subtitle>Select a tour to edit or create a new one</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-          <button mat-stroked-button color="primary" (click)="newTour()">
+          <button
+            mat-stroked-button
+            color="primary"
+            (click)="newTour()"
+            [ngClass]="{ 'vh-admin-button--mobile': isMobile }"
+            matTooltip="Create new tour"
+          >
             <mat-icon>add</mat-icon>
             <span>New tour</span>
           </button>
@@ -43,6 +65,7 @@
                 type="button"
                 (click)="editTour(tour)"
                 [class.vh-admin-tours-selected]="tour.id === selectedId()"
+                matTooltip="Edit tour"
               >
                 <span class="vh-admin-tour-title">{{ tour.title }}</span>
                 <span class="vh-admin-tour-meta">
@@ -58,6 +81,7 @@
                 color="primary"
                 [routerLink]="['/admin/tours', tour.id, 'pois']"
                 aria-label="Manage stops"
+                matTooltip="Manage stops"
               >
                 <mat-icon>place</mat-icon>
               </a>
@@ -68,6 +92,7 @@
                 type="button"
                 (click)="delete(tour)"
                 aria-label="Delete tour"
+                matTooltip="Delete tour"
               >
                 <mat-icon>delete</mat-icon>
               </button>
@@ -155,6 +180,8 @@
               type="submit"
               class="vh-admin-save"
               [disabled]="saving"
+              [ngClass]="{ 'vh-admin-button--mobile': isMobile }"
+              matTooltip="Save tour"
             >
               <mat-icon>save</mat-icon>
               <span>Save</span>
@@ -166,12 +193,14 @@
                 type="button"
                 (click)="exportJson()"
                 [disabled]="!selectedId()"
+                [ngClass]="{ 'vh-admin-button--mobile': isMobile }"
+                matTooltip="Export tour JSON"
               >
                 <mat-icon>download</mat-icon>
                 <span>Export JSON</span>
               </button>
 
-              <label class="vh-admin-upload-label">
+              <label class="vh-admin-upload-label" matTooltip="Import tour JSON">
                 Import JSON
                 <input type="file" accept="application/json" (change)="onImportJson($event)" />
               </label>
