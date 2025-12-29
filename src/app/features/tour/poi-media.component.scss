@@ -93,4 +93,23 @@
   opacity: 0.7;
 }
 
+/* Gallery mode adjustments */
+:host(.vh-poi-media--gallery) .vh-poi-media {
+  max-width: 720px;
+  margin: 0 auto 2rem;
+}
+
+:host(.vh-poi-media--gallery) .vh-poi-media__image-wrapper {
+  /* Slightly taller image for gallery view */
+  padding-top: 70%;
+}
+
+:host(.vh-poi-media--gallery) .vh-poi-media__audio-shell {
+  /* In gallery view keep audio docked under the image, not sticky */
+  position: static;
+  margin-top: 1rem;
+  background: linear-gradient(to top, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.8));
+  border-radius: 1rem;
+}
+
 

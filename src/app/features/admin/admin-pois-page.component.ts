@@ -40,8 +40,8 @@ export class AdminPoisPageComponent implements OnInit {
 
   readonly form;
 
-  saving = false;
-  errorMessage: string | null = null;
+  readonly saving = signal(false);
+  readonly errorMessage = signal<string | null>(null);
   tourId = '';
 
   constructor(
@@ -115,19 +115,19 @@ export class AdminPoisPageComponent implements OnInit {
 
     const poiId = this.form.get('id')?.value;
     if (!poiId) {
-      this.errorMessage = 'Please set a POI ID before uploading audio.';
+      this.errorMessage.set('Please set a POI ID before uploading audio.');
       input.value = '';
       return;
     }
 
-    this.saving = true;
-    this.errorMessage = null;
+    this.saving.set(true);
+    this.errorMessage.set(null);
     const result = await this.mediaService.uploadPoiAudio(this.tourId, poiId, file);
-    this.saving = false;
+    this.saving.set(false);
     input.value = '';
 
     if (result.error || !result.url) {
-      this.errorMessage = result.error ?? 'Failed to upload audio.';
+      this.errorMessage.set(result.error ?? 'Failed to upload audio.');
       return;
     }
 
@@ -135,13 +135,13 @@ export class AdminPoisPageComponent implements OnInit {
   }
 
   async save(): Promise<void> {
-    if (this.form.invalid || this.saving) {
+    if (this.form.invalid || this.saving()) {
       this.form.markAllAsTouched();
       return;
     }
 
-    this.saving = true;
-    this.errorMessage = null;
+    this.saving.set(true);
+    this.errorMessage.set(null);
     const value = this.form.getRawValue();
 
     const row = {
@@ -150,10 +150,10 @@ export class AdminPoisPageComponent implements OnInit {
     };
 
     const result = await this.poisService.upsertPoi(row as any);
-    this.saving = false;
+    this.saving.set(false);
 
     if (result.error) {
-      this.errorMessage = result.error;
+      this.errorMessage.set(result.error);
       return;
     }
 
@@ -161,7 +161,7 @@ export class AdminPoisPageComponent implements OnInit {
   }
 
   async delete(row: any): Promise<void> {
-    if (this.saving) {
+    if (this.saving()) {
       return;
     }
 
@@ -170,13 +170,13 @@ export class AdminPoisPageComponent implements OnInit {
       return;
     }
 
-    this.saving = true;
-    this.errorMessage = null;
+    this.saving.set(true);
+    this.errorMessage.set(null);
     const result = await this.poisService.deletePoi(row.id);
-    this.saving = false;
+    this.saving.set(false);
 
     if (result.error) {
-      this.errorMessage = result.error;
+      this.errorMessage.set(result.error);
       return;
     }
 

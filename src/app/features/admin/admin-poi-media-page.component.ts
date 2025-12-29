@@ -40,8 +40,8 @@ export class AdminPoiMediaPageComponent implements OnInit {
 
   readonly form;
 
-  saving = false;
-  errorMessage: string | null = null;
+  readonly saving = signal(false);
+  readonly errorMessage = signal<string | null>(null);
   poiId = '';
 
   constructor(
@@ -107,13 +107,13 @@ export class AdminPoiMediaPageComponent implements OnInit {
 
     const type = this.form.get('media_type')?.value as string;
     if (!type) {
-      this.errorMessage = 'Select a media type before uploading.';
+      this.errorMessage.set('Select a media type before uploading.');
       input.value = '';
       return;
     }
 
-    this.saving = true;
-    this.errorMessage = null;
+    this.saving.set(true);
+    this.errorMessage.set(null);
 
     // For now, reuse cover/audio upload helpers; paths are namespaced by POI.
     let result:
@@ -129,11 +129,11 @@ export class AdminPoiMediaPageComponent implements OnInit {
       result = { error: 'File upload is only supported for image and audio types.' };
     }
 
-    this.saving = false;
+    this.saving.set(false);
     input.value = '';
 
     if (!result || result.error || !result.url) {
-      this.errorMessage = result?.error ?? 'Failed to upload media file.';
+      this.errorMessage.set(result?.error ?? 'Failed to upload media file.');
       return;
     }
 
@@ -141,20 +141,20 @@ export class AdminPoiMediaPageComponent implements OnInit {
   }
 
   async save(): Promise<void> {
-    if (this.form.invalid || this.saving) {
+    if (this.form.invalid || this.saving()) {
       this.form.markAllAsTouched();
       return;
     }
 
-    this.saving = true;
-    this.errorMessage = null;
+    this.saving.set(true);
+    this.errorMessage.set(null);
     const value = this.form.getRawValue();
 
     const result = await this.poisService.upsertMedia(this.poiId, value as any);
-    this.saving = false;
+    this.saving.set(false);
 
     if (result.error) {
-      this.errorMessage = result.error;
+      this.errorMessage.set(result.error);
       return;
     }
 
@@ -162,7 +162,7 @@ export class AdminPoiMediaPageComponent implements OnInit {
   }
 
   async delete(row: any): Promise<void> {
-    if (this.saving) {
+    if (this.saving()) {
       return;
     }
 
@@ -171,13 +171,13 @@ export class AdminPoiMediaPageComponent implements OnInit {
       return;
     }
 
-    this.saving = true;
-    this.errorMessage = null;
+    this.saving.set(true);
+    this.errorMessage.set(null);
     const result = await this.poisService.deleteMedia(row.id);
-    this.saving = false;
+    this.saving.set(false);
 
     if (result.error) {
-      this.errorMessage = result.error;
+      this.errorMessage.set(result.error);
       return;
     }
 

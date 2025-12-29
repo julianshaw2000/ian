@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  HostBinding,
   Input,
   ViewChild,
   signal,
@@ -26,6 +27,11 @@ type PoiMediaMode = 'split' | 'gallery';
 export class PoiMediaComponent implements AfterViewInit {
   @Input() poi: Poi | null = null;
   @Input() mode: PoiMediaMode = 'split';
+
+  @HostBinding('class.vh-poi-media--gallery')
+  get isGalleryMode(): boolean {
+    return this.mode === 'gallery';
+  }
 
   @ViewChild('audioRef') private audioRef?: ElementRef<HTMLAudioElement>;
 

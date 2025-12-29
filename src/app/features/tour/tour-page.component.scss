@@ -75,15 +75,15 @@
   flex-direction: column;
   gap: 0.5rem;
   flex: 1;
+  min-height: 0;
 }
 
 .vh-map-pane {
   flex: 1;
-  min-height: 42vh;
+  min-height: 50vh;
   border-radius: 1.25rem;
   overflow: hidden;
-  background:
-    radial-gradient(circle at top, rgba(25, 118, 210, 0.18), rgba(13, 71, 161, 0.7));
+  background: radial-gradient(circle at top, rgba(25, 118, 210, 0.18), rgba(13, 71, 161, 0.7));
 }
 
 .vh-map-placeholder {
@@ -196,10 +196,11 @@
   align-items: stretch;
   justify-content: flex-start;
   padding: 1rem 0.75rem 3.5rem;
+  min-height: 0;
 }
 
 .vh-mode-full--map {
-  min-height: 60vh;
+  min-height: 0;
 }
 
 .vh-mode-full--map .vh-map-placeholder--full {
@@ -208,11 +209,24 @@
 
 .vh-mode-full--gallery {
   padding-inline: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .vh-help {
   align-items: flex-start;
   text-align: left;
+}
+
+.vh-mode-full--map app-map-canvas {
+  flex: 1;
+  min-height: 70vh;
+}
+
+.vh-mode-full--gallery app-poi-media {
+  flex: 1;
+  min-height: 0;
 }
 
 .vh-help h2 {
@@ -291,5 +305,3 @@
     max-width: 960px;
   }
 }
-
-

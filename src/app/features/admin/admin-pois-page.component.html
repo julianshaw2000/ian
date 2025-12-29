@@ -143,15 +143,15 @@
               color="primary"
               type="submit"
               class="vh-admin-save"
-              [disabled]="saving"
+              [disabled]="saving()"
             >
               <mat-icon>save</mat-icon>
               <span>Save</span>
             </button>
           </form>
 
-          <p *ngIf="errorMessage" class="vh-admin-error">
-            {{ errorMessage }}
+          <p *ngIf="errorMessage()" class="vh-admin-error">
+            {{ errorMessage() }}
           </p>
         </mat-card-content>
       </mat-card>

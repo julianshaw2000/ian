@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
@@ -28,8 +28,9 @@ import { SupabaseAuthService } from '../../shared/services/supabase-auth.service
 export class AdminLoginPageComponent {
   readonly form;
 
-  submitting = false;
-  errorMessage: string | null = null;
+  readonly submitting = signal(false);
+  readonly errorMessage = signal<string | null>(null);
+  readonly isFormValid = signal(false);
 
   constructor(
     private readonly fb: FormBuilder,
@@ -40,23 +41,31 @@ export class AdminLoginPageComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
     });
+
+    // Subscribe to form status changes and update signal
+    this.form.statusChanges.subscribe(() => {
+      this.isFormValid.set(this.form.valid);
+    });
+
+    // Set initial validity
+    this.isFormValid.set(this.form.valid);
   }
 
   async signInWithEmail(): Promise<void> {
-    if (this.form.invalid || this.submitting) {
+    if (this.form.invalid || this.submitting()) {
       this.form.markAllAsTouched();
       return;
     }
 
-    this.submitting = true;
-    this.errorMessage = null;
+    this.submitting.set(true);
+    this.errorMessage.set(null);
     const { email, password } = this.form.getRawValue();
 
     const result = await this.auth.signInWithPassword(email, password);
-    this.submitting = false;
+    this.submitting.set(false);
 
     if (result.error) {
-      this.errorMessage = result.error;
+      this.errorMessage.set(result.error);
       return;
     }
 

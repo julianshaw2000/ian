@@ -50,9 +50,9 @@ export class AdminToursPageComponent implements OnInit {
 
   readonly form;
 
-  saving = false;
-  errorMessage: string | null = null;
-  isMobile = false;
+  readonly saving = signal(false);
+  readonly errorMessage = signal<string | null>(null);
+  readonly isMobile = signal(false);
 
   constructor(
     private readonly fb: FormBuilder,
@@ -79,6 +79,11 @@ export class AdminToursPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.refresh();
+
+    // Subscribe to breakpoint changes for responsive UI
+    this.breakpointObserver.observe(['(max-width: 600px)']).subscribe((result) => {
+      this.isMobile.set(result.matches);
+    });
   }
 
   refresh(): void {
@@ -100,10 +105,6 @@ export class AdminToursPageComponent implements OnInit {
       route_url: '',
       cover_image_url: '',
       is_published: false,
-    });
-
-    this.breakpointObserver.observe(['(max-width: 600px)']).subscribe((result) => {
-      this.isMobile = result.matches;
     });
   }
 
@@ -136,19 +137,19 @@ export class AdminToursPageComponent implements OnInit {
 
     const id = this.form.get('id')?.value;
     if (!id) {
-      this.errorMessage = 'Please set a tour ID before uploading a cover image.';
+      this.errorMessage.set('Please set a tour ID before uploading a cover image.');
       input.value = '';
       return;
     }
 
-    this.saving = true;
-    this.errorMessage = null;
+    this.saving.set(true);
+    this.errorMessage.set(null);
     const result = await this.mediaService.uploadTourCoverImage(id, file);
-    this.saving = false;
+    this.saving.set(false);
     input.value = '';
 
     if (result.error || !result.url) {
-      this.errorMessage = result.error ?? 'Failed to upload cover image.';
+      this.errorMessage.set(result.error ?? 'Failed to upload cover image.');
       return;
     }
 
@@ -164,19 +165,19 @@ export class AdminToursPageComponent implements OnInit {
 
     const id = this.form.get('id')?.value;
     if (!id) {
-      this.errorMessage = 'Please set a tour ID before uploading a route file.';
+      this.errorMessage.set('Please set a tour ID before uploading a route file.');
       input.value = '';
       return;
     }
 
-    this.saving = true;
-    this.errorMessage = null;
+    this.saving.set(true);
+    this.errorMessage.set(null);
     const result = await this.mediaService.uploadTourRouteGeoJson(id, file);
-    this.saving = false;
+    this.saving.set(false);
     input.value = '';
 
     if (result.error || !result.url) {
-      this.errorMessage = result.error ?? 'Failed to upload route file.';
+      this.errorMessage.set(result.error ?? 'Failed to upload route file.');
       return;
     }
 
@@ -184,20 +185,20 @@ export class AdminToursPageComponent implements OnInit {
   }
 
   async save(): Promise<void> {
-    if (this.form.invalid || this.saving) {
+    if (this.form.invalid || this.saving()) {
       this.form.markAllAsTouched();
       return;
     }
 
-    this.saving = true;
-    this.errorMessage = null;
+    this.saving.set(true);
+    this.errorMessage.set(null);
     const value = this.form.getRawValue() as SupabaseTour;
 
     const result = await this.toursService.upsertTour(value);
-    this.saving = false;
+    this.saving.set(false);
 
     if (result.error) {
-      this.errorMessage = result.error;
+      this.errorMessage.set(result.error);
       return;
     }
 
@@ -205,7 +206,7 @@ export class AdminToursPageComponent implements OnInit {
   }
 
   async delete(tour: SupabaseTour): Promise<void> {
-    if (this.saving) {
+    if (this.saving()) {
       return;
     }
 
@@ -214,14 +215,14 @@ export class AdminToursPageComponent implements OnInit {
       return;
     }
 
-    this.saving = true;
-    this.errorMessage = null;
+    this.saving.set(true);
+    this.errorMessage.set(null);
 
     const result = await this.toursService.deleteTour(tour.id);
-    this.saving = false;
+    this.saving.set(false);
 
     if (result.error) {
-      this.errorMessage = result.error;
+      this.errorMessage.set(result.error);
       return;
     }
 
@@ -235,13 +236,13 @@ export class AdminToursPageComponent implements OnInit {
   async exportJson(): Promise<void> {
     const tourId = this.selectedId() ?? this.form.get('id')?.value;
     if (!tourId) {
-      this.errorMessage = 'Select or create a tour before exporting JSON.';
+      this.errorMessage.set('Select or create a tour before exporting JSON.');
       return;
     }
 
     const tour = this.tours().find((t) => t.id === tourId);
     if (!tour) {
-      this.errorMessage = 'Tour not found in the current list.';
+      this.errorMessage.set('Tour not found in the current list.');
       return;
     }
 
@@ -339,7 +340,7 @@ export class AdminToursPageComponent implements OnInit {
       a.click();
       URL.revokeObjectURL(url);
     } catch (e) {
-      this.errorMessage = 'Failed to export tour JSON.';
+      this.errorMessage.set('Failed to export tour JSON.');
     }
   }
 
@@ -355,7 +356,7 @@ export class AdminToursPageComponent implements OnInit {
       const parsed = JSON.parse(text) as { tour: any; pois: any[] };
 
       if (!parsed.tour || !Array.isArray(parsed.pois)) {
-        this.errorMessage = 'Invalid JSON format for tour import.';
+        this.errorMessage.set('Invalid JSON format for tour import.');
         return;
       }
 
@@ -402,7 +403,7 @@ export class AdminToursPageComponent implements OnInit {
 
       this.refresh();
     } catch (e) {
-      this.errorMessage = 'Failed to import tour JSON.';
+      this.errorMessage.set('Failed to import tour JSON.');
     } finally {
       input.value = '';
     }

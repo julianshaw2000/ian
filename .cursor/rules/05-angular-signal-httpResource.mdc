@@ -1,0 +1,29 @@
+---
+description: "Guidelines for creating HTTP Resource services (e.g., UserService, ProductService) to ensure consistency, proper error handling, and adherence to Angular best practices."
+globs:
+  - "**/*.service.ts"
+alwaysApply: false
+---
+
+# 🌐 HTTP Resource Service Standards
+
+## Core Structure & Naming
+* **Service Suffix:** All HTTP services **MUST** be named with a `Service` suffix (e.g., `ProductService`).
+* **Injection:** Use the modern `inject()` function for dependency injection, particularly for `HttpClient`.
+
+## Data Flow & Immutability
+* **State Management:** For component-internal state derived from the service, use **Signals** (`signal()`, `computed()`) or RxJS **Observables** where a clear stream of data is required.
+* **Immutability:** Service methods that modify data (e.g., `updateProduct`) **MUST** treat data as immutable and return a new instance or an Observable of the result.
+* **Local Data Store (Optional):** If local caching is needed, use a private `signal` or `BehaviorSubject` to hold the data, and expose a public `computed` signal or `Observable` for components to subscribe to.
+
+## HTTP Methods
+* **Method Naming:** Use descriptive names that reflect the action and the resource:
+    * `GET` requests: `get[Resource]s()`, `get[Resource](id)`
+    * `POST` requests: `create[Resource](data)`
+    * `PUT`/`PATCH` requests: `update[Resource](id, data)`
+    * `DELETE` requests: `delete[Resource](id)`
+* **Return Types:** HTTP methods **MUST** return an `Observable<T>` (where `T` is the expected response type).
+
+## Error Handling
+* **Centralized Handling:** Wrap all HTTP calls with the RxJS `catchError` operator and delegate error processing to a dedicated, injected error handling service or a private method (`handleError`).
+* **Logging:** Errors **MUST** be logged or tracked using an appropriate mechanism (e.g., console, monitoring service).
