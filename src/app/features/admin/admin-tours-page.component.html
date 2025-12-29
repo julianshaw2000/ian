@@ -46,8 +46,7 @@
               >
                 <span class="vh-admin-tour-title">{{ tour.title }}</span>
                 <span class="vh-admin-tour-meta">
-                  {{ tour.location || 'Unknown location' }} ·
-                  {{ tour.distance_km ?? 0 }} km ·
+                  {{ tour.location || 'Unknown location' }} · {{ tour.distance_km ?? 0 }} km ·
                   {{ tour.duration_minutes ?? 0 }} min
                   <span *ngIf="tour.is_published">· Published</span>
                   <span *ngIf="!tour.is_published">· Draft</span>
@@ -127,11 +126,7 @@
               <div class="vh-admin-form-full">
                 <label class="vh-admin-upload-label">
                   Cover image
-                  <input
-                    type="file"
-                    accept="image/*"
-                    (change)="onCoverSelected($event)"
-                  />
+                  <input type="file" accept="image/*" (change)="onCoverSelected($event)" />
                 </label>
                 <div *ngIf="form.value.cover_image_url" class="vh-admin-cover-preview">
                   <img [src]="form.value.cover_image_url" alt="Tour cover preview" />
@@ -150,9 +145,7 @@
               </div>
 
               <div class="vh-admin-form-full vh-admin-toggle-row">
-                <mat-slide-toggle formControlName="is_published">
-                  Published
-                </mat-slide-toggle>
+                <mat-slide-toggle formControlName="is_published"> Published </mat-slide-toggle>
               </div>
             </div>
 
@@ -180,11 +173,7 @@
 
               <label class="vh-admin-upload-label">
                 Import JSON
-                <input
-                  type="file"
-                  accept="application/json"
-                  (change)="onImportJson($event)"
-                />
+                <input type="file" accept="application/json" (change)="onImportJson($event)" />
               </label>
             </div>
           </form>
@@ -197,5 +186,3 @@
     </section>
   </main>
 </div>
-
-
