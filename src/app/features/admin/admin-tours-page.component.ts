@@ -58,7 +58,7 @@ export class AdminToursPageComponent implements OnInit {
     private readonly fb: FormBuilder,
     private readonly toursService: SupabaseToursService,
     private readonly mediaService: SupabaseMediaService,
-    private readonly auth: SupabaseAuthService,
+    protected readonly auth: SupabaseAuthService,
     private readonly poisService: SupabasePoisService,
     private readonly breakpointObserver: BreakpointObserver,
     private readonly router: Router

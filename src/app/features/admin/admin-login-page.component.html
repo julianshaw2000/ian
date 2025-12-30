@@ -42,6 +42,16 @@
           <mat-icon>login</mat-icon>
           <span>Sign in</span>
         </button>
+
+        <button
+          mat-button
+          type="button"
+          class="vh-admin-secondary"
+          (click)="cancel()"
+        >
+          <mat-icon>close</mat-icon>
+          <span>Cancel</span>
+        </button>
       </form>
 
       <p *ngIf="errorMessage()" class="vh-admin-error">

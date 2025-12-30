@@ -71,6 +71,10 @@ export class AdminLoginPageComponent {
 
     await this.router.navigate(['/admin/dashboard']);
   }
+
+  cancel(): void {
+    this.router.navigate(['/']);
+  }
 }
 
 

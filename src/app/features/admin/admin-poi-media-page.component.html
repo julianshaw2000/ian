@@ -7,6 +7,10 @@
 
     <span class="vh-admin-toolbar-spacer"></span>
 
+    <span *ngIf="auth.userEmail() as email" class="vh-admin-user">
+      {{ email }}
+    </span>
+
     <a mat-button [routerLink]="['/admin/tours']">
       <mat-icon>map</mat-icon>
       <span>Tours</span>
@@ -132,5 +136,3 @@
     </section>
   </main>
 </div>
-
-

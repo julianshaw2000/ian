@@ -43,6 +43,7 @@ export class AdminPoiMediaPageComponent implements OnInit {
   readonly saving = signal(false);
   readonly errorMessage = signal<string | null>(null);
   poiId = '';
+  tourId = '';
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -50,7 +51,7 @@ export class AdminPoiMediaPageComponent implements OnInit {
     private readonly fb: FormBuilder,
     private readonly poisService: SupabasePoisService,
     private readonly mediaService: SupabaseMediaService,
-    private readonly auth: SupabaseAuthService
+    protected readonly auth: SupabaseAuthService
   ) {
     this.form = this.fb.nonNullable.group({
       id: [''],
@@ -69,6 +70,7 @@ export class AdminPoiMediaPageComponent implements OnInit {
         return;
       }
       this.poiId = id;
+      this.tourId = this.route.snapshot.queryParamMap.get('tourId') ?? this.tourId;
       this.refresh();
     });
   }
@@ -115,18 +117,18 @@ export class AdminPoiMediaPageComponent implements OnInit {
     this.saving.set(true);
     this.errorMessage.set(null);
 
-    // For now, reuse cover/audio upload helpers; paths are namespaced by POI.
     let result:
       | { url?: string; error?: string }
       | undefined;
 
     if (type === 'image') {
-      // Store images under media bucket with poi id in path.
-      result = await this.mediaService.uploadTourCoverImage(this.poiId, file);
+      result = await this.mediaService.uploadPoiImage(this.tourId || this.poiId, this.poiId, file);
     } else if (type === 'audio' || type === 'music') {
-      result = await this.mediaService.uploadPoiAudio(this.poiId, this.poiId, file);
+      result = await this.mediaService.uploadPoiAudio(this.tourId || this.poiId, this.poiId, file);
+    } else if (type === 'video') {
+      result = await this.mediaService.uploadPoiVideo(this.tourId || this.poiId, this.poiId, file);
     } else {
-      result = { error: 'File upload is only supported for image and audio types.' };
+      result = { error: 'File upload is only supported for image, audio and video types.' };
     }
 
     this.saving.set(false);

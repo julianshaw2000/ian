@@ -2,8 +2,9 @@
   <mat-toolbar color="primary" class="vh-home-toolbar">
     <span class="vh-logo">City History Walks</span>
     <span class="vh-toolbar-spacer"></span>
-    <button mat-icon-button [routerLink]="['/admin/dashboard']" aria-label="Admin">
-      <mat-icon>admin_panel_settings</mat-icon>
+    <button mat-button [routerLink]="['/admin/login']" aria-label="Admin Login">
+      <mat-icon>login</mat-icon>
+      <span>Admin login</span>
     </button>
   </mat-toolbar>
 
@@ -57,7 +58,7 @@
               </div>
 
               <p class="vh-tagline">
-                A map-first, audio-guided walk through the neighbourhood’s most vivid stories.
+                A map-first, audio-guided walk through the neighbourhood’s most city stories.
               </p>
 
               <div class="vh-tags">

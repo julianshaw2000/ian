@@ -22,7 +22,7 @@ export class AdminDashboardPageComponent implements OnInit {
 
   constructor(
     private readonly toursService: SupabaseToursService,
-    private readonly auth: SupabaseAuthService,
+    protected readonly auth: SupabaseAuthService,
     private readonly router: Router
   ) {}
 

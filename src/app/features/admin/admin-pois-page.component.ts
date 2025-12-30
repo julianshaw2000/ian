@@ -50,7 +50,7 @@ export class AdminPoisPageComponent implements OnInit {
     private readonly fb: FormBuilder,
     private readonly poisService: SupabasePoisService,
     private readonly mediaService: SupabaseMediaService,
-    private readonly auth: SupabaseAuthService
+    protected readonly auth: SupabaseAuthService
   ) {
     this.form = this.fb.nonNullable.group({
       id: ['', [Validators.required]],

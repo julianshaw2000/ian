@@ -57,16 +57,23 @@ export class TourPageComponent implements OnInit {
           return;
         }
 
-        const tour = getTourById(tourId);
-        if (!tour) {
-          void this.router.navigate(['/'], { replaceUrl: true });
-          return;
-        }
-
-        const effectiveTour = {
-          ...tour,
-          routeGeoJsonUrl: remoteTour.route_url ?? tour.routeGeoJsonUrl,
-        };
+        const sampleTour = getTourById(tourId);
+        const effectiveTour = sampleTour
+          ? {
+              ...sampleTour,
+              routeGeoJsonUrl: remoteTour.route_url ?? sampleTour.routeGeoJsonUrl,
+            }
+          : {
+              // Fallback: build a tour model directly from Supabase data
+              id: remoteTour.id,
+              title: remoteTour.title,
+              distanceKm: remoteTour.distance_km ?? 0,
+              durationMinutes: remoteTour.duration_minutes ?? 0,
+              price: this.formatPrice(remoteTour.price_cents, remoteTour.currency),
+              languageOptions: ['en'],
+              routeGeoJsonUrl: remoteTour.route_url ?? '',
+              coverImages: remoteTour.cover_image_url ? [remoteTour.cover_image_url] : [],
+            };
 
         this.poisService.getPoisForTour(tourId).subscribe((pois) => {
           if (pois.length === 0) {
@@ -102,5 +109,11 @@ export class TourPageComponent implements OnInit {
 
   protected goHome(): void {
     void this.router.navigate(['/']);
+  }
+
+  private formatPrice(priceCents: number | null, currency: string | null): string {
+    const amount = (priceCents ?? 0) / 100;
+    const currencyCode = currency || 'GBP';
+    return `${amount.toFixed(2)} ${currencyCode}`;
   }
 }
