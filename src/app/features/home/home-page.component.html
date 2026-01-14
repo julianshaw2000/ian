@@ -61,16 +61,16 @@
                 A map-first, audio-guided walk through the neighbourhood’s most city stories.
               </p>
 
-              <div class="vh-tags">
+              <!-- <div class="vh-tags">
                 @for (tag of tags(); track tag) {
                 <span class="vh-tag">
                   {{ tag }}
                 </span>
                 }
-              </div>
+              </div> -->
             </mat-card-content>
 
-            <mat-card-actions align="end">
+            <mat-card-actions align="start">
               <button mat-flat-button color="primary" [routerLink]="['/tour', tour.id]">
                 <mat-icon>play_arrow</mat-icon>
                 <span>Start tour</span>
