@@ -1,5 +1,5 @@
 <div class="vh-admin-shell">
-  <mat-toolbar color="primary" class="vh-admin-toolbar">
+  <mat-toolbar class="vh-admin-toolbar">
     <span class="vh-admin-title">
       <mat-icon>collections</mat-icon>
       <span>Media for stop</span>
@@ -28,6 +28,13 @@
   </mat-toolbar>
 
   <main class="vh-admin-main">
+    <div class="vh-admin-nav-back">
+      <a mat-stroked-button [routerLink]="['/admin/tours', tourId, 'pois']" color="primary">
+        <mat-icon>arrow_back</mat-icon>
+        <span>Back to Stops</span>
+      </a>
+    </div>
+
     <section class="vh-admin-layout">
       <mat-card class="vh-admin-list">
         <mat-card-header>
@@ -116,16 +123,29 @@
               </div>
             </div>
 
-            <button
-              mat-raised-button
-              color="primary"
-              type="submit"
-              class="vh-admin-save"
-              [disabled]="saving()"
-            >
-              <mat-icon>save</mat-icon>
-              <span>Save</span>
-            </button>
+            <div class="vh-admin-actions">
+              <button
+                mat-raised-button
+                color="primary"
+                type="submit"
+                class="vh-admin-save"
+                [disabled]="saving()"
+              >
+                <mat-icon>save</mat-icon>
+                <span>Save</span>
+              </button>
+
+              <button
+                mat-stroked-button
+                type="button"
+                class="vh-admin-cancel"
+                [disabled]="saving()"
+                (click)="newMedia()"
+              >
+                <mat-icon>close</mat-icon>
+                <span>Cancel</span>
+              </button>
+            </div>
           </form>
 
           <p *ngIf="errorMessage()" class="vh-admin-error">

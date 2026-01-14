@@ -1,5 +1,9 @@
 <div class="vh-admin-shell">
-  <mat-toolbar color="primary" class="vh-admin-toolbar">
+  <mat-toolbar class="vh-admin-toolbar">
+    <button mat-icon-button type="button" (click)="back()" matTooltip="Back">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+
     <span class="vh-admin-title">
       <mat-icon>admin_panel_settings</mat-icon>
       <span>Admin · CityHistoryWalks</span>

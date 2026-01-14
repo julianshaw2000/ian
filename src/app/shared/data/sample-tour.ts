@@ -1,7 +1,7 @@
 import { Poi, Tour } from '../models/tour.models';
 
-export const LONDON_TOUR_ID = 'london-vivid-history';
-export const BRIXTON_TOUR_ID = 'brixton-vivid-history';
+export const LONDON_TOUR_ID = 'london-city-history';
+export const BRIXTON_TOUR_ID = 'brixton-city-history';
 
 export const LONDON_TOUR: Tour = {
   id: LONDON_TOUR_ID,
@@ -10,7 +10,7 @@ export const LONDON_TOUR: Tour = {
   durationMinutes: 90,
   price: '£9.99',
   languageOptions: ['en'],
-  routeGeoJsonUrl: '/data/london-vivid-history-route.geojson',
+  routeGeoJsonUrl: '/data/london-city-history-route.geojson',
   coverImages: ['/assets/london/london-cover-1.jpg', '/assets/london/london-cover-2.jpg'],
 };
 
@@ -126,7 +126,7 @@ export const BRIXTON_TOUR: Tour = {
   durationMinutes: 75,
   price: '£7.99',
   languageOptions: ['en'],
-  routeGeoJsonUrl: '/data/brixton-vivid-history-route.geojson',
+  routeGeoJsonUrl: '/data/brixton-city-history-route.geojson',
   coverImages: ['/assets/brixton/brixton-cover-1.jpg'],
 };
 

@@ -6,8 +6,8 @@ export default defineConfig({
     specPattern: 'cypress/e2e/**/*.cy.ts',
     supportFile: false,
     env: {
-      ADMIN_EMAIL: 'admin',
-      ADMIN_PASSWORD: 'Admin123!'
+      ADMIN_EMAIL: 'julianshaw2000@gmail.com',
+      ADMIN_PASSWORD: 'Gl@ria100'
     }
   }
 });

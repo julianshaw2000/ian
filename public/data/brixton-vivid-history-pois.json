@@ -1,7 +1,7 @@
 [
   {
     "id": "brixton-1-station",
-    "tourId": "brixton-vivid-history",
+    "tourId": "brixton-city-history",
     "orderIndex": 1,
     "lat": 51.4626,
     "lng": -0.114,
@@ -10,7 +10,7 @@
   },
   {
     "id": "brixton-2-arcade",
-    "tourId": "brixton-vivid-history",
+    "tourId": "brixton-city-history",
     "orderIndex": 2,
     "lat": 51.4621,
     "lng": -0.112,
@@ -19,7 +19,7 @@
   },
   {
     "id": "brixton-3-windrush",
-    "tourId": "brixton-vivid-history",
+    "tourId": "brixton-city-history",
     "orderIndex": 3,
     "lat": 51.4635,
     "lng": -0.1127,
@@ -28,7 +28,7 @@
   },
   {
     "id": "brixton-4-library",
-    "tourId": "brixton-vivid-history",
+    "tourId": "brixton-city-history",
     "orderIndex": 4,
     "lat": 51.4629,
     "lng": -0.1125,
@@ -37,7 +37,7 @@
   },
   {
     "id": "brixton-5-rialto",
-    "tourId": "brixton-vivid-history",
+    "tourId": "brixton-city-history",
     "orderIndex": 5,
     "lat": 51.4615,
     "lng": -0.1121,
@@ -45,5 +45,3 @@
     "address": "Coldharbour Ln, London SW2 1JG"
   }
 ]
-
-

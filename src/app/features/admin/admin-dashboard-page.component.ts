@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { NgForOf, NgIf } from '@angular/common';
+import { Location } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,6 +24,7 @@ export class AdminDashboardPageComponent implements OnInit {
   constructor(
     private readonly toursService: SupabaseToursService,
     protected readonly auth: SupabaseAuthService,
+    private readonly location: Location,
     private readonly router: Router
   ) {}
 
@@ -34,6 +36,15 @@ export class AdminDashboardPageComponent implements OnInit {
 
   async logout(): Promise<void> {
     await this.auth.signOut();
+    await this.router.navigate(['/']);
+  }
+
+  async back(): Promise<void> {
+    if (window.history.length > 1) {
+      this.location.back();
+      return;
+    }
+
     await this.router.navigate(['/']);
   }
 }

@@ -4,7 +4,7 @@
     {
       "type": "Feature",
       "properties": {
-        "id": "london-vivid-history-route",
+        "id": "london-city-history-route",
         "name": "CityHistoryWalks: London Walking Tour"
       },
       "geometry": {
@@ -21,5 +21,3 @@
     }
   ]
 }
-
-

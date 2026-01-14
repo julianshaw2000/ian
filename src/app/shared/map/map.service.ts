@@ -33,7 +33,7 @@ export class MapService {
     return map;
   }
 
-  setRouteFromGeoJson(map: Map, id: string, url: string, color = '#1976d2'): void {
+  async setRouteFromGeoJson(map: Map, id: string, url: string, color = '#1976d2'): Promise<void> {
     const sourceId = `${id}-route`;
     const layerId = `${id}-route-line`;
 
@@ -44,10 +44,22 @@ export class MapService {
       map.removeSource(sourceId);
     }
 
-    map.addSource(sourceId, {
-      type: 'geojson',
-      data: url
-    } as any);
+    // MapLibre can accept a URL string as GeoJSON data, but if it 404s it may throw a runtime error.
+    // We fetch it ourselves so we can fail gracefully and keep the tour usable even without a route file.
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        return;
+      }
+      const geojson = (await response.json()) as unknown;
+
+      map.addSource(sourceId, {
+        type: 'geojson',
+        data: geojson,
+      } as any);
+    } catch {
+      return;
+    }
 
     map.addLayer({
       id: layerId,

@@ -79,6 +79,8 @@ export class AdminToursPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.refresh();
+    // Expose component instance globally for testing
+    (window as any).adminToursComponent = this;
 
     // Subscribe to breakpoint changes for responsive UI
     this.breakpointObserver.observe(['(max-width: 600px)']).subscribe((result) => {
@@ -352,6 +354,14 @@ export class AdminToursPageComponent implements OnInit {
     }
 
     try {
+      await this.importJsonFromFile(file);
+    } finally {
+      input.value = '';
+    }
+  }
+
+  async importJsonFromFile(file: File): Promise<void> {
+    try {
       const text = await file.text();
       const parsed = JSON.parse(text) as { tour: any; pois: any[] };
 
@@ -361,41 +371,72 @@ export class AdminToursPageComponent implements OnInit {
       }
 
       const tourJson = parsed.tour;
+
+      // Handle route URL from different JSON formats
+      let routeUrl: string | null = null;
+      if (tourJson.route?.geojson_url) {
+        routeUrl = tourJson.route.geojson_url;
+      } else if (tourJson.route?.properties?.route_url) {
+        routeUrl = tourJson.route.properties.route_url;
+      } else if (tourJson.route_url) {
+        routeUrl = tourJson.route_url;
+      }
+
+      // Handle cover image from different JSON formats
+      let coverImageUrl: string | null = null;
+      if (tourJson.cover_image_url) {
+        coverImageUrl = tourJson.cover_image_url;
+      } else if (Array.isArray(tourJson.covers) && tourJson.covers.length > 0) {
+        coverImageUrl = tourJson.covers[0].file_name ?? tourJson.covers[0].url ?? null;
+      }
+
       const supabaseTour: SupabaseTour = {
         id: tourJson.id,
         title: tourJson.title,
         location: tourJson.location ?? null,
         distance_km: tourJson.distance_km ?? null,
         duration_minutes: tourJson.duration_minutes ?? null,
-        price_cents: tourJson.price_cents ?? null,
+        price_cents: tourJson.price_cents ?? tourJson.price_pence ?? null,
         currency: tourJson.currency ?? 'GBP',
-        route_url: tourJson.route?.properties?.route_url ?? null,
-        cover_image_url:
-          Array.isArray(tourJson.covers) && tourJson.covers.length > 0
-            ? tourJson.covers[0].file_name ?? null
-            : null,
-        is_published: tourJson.is_published ?? false,
+        route_url: typeof routeUrl === 'string' && routeUrl.startsWith('/') ? null : routeUrl,
+        cover_image_url: coverImageUrl,
+        is_published: tourJson.published ?? tourJson.is_published ?? false,
       };
 
       await this.toursService.upsertTour(supabaseTour);
 
       for (const poiJson of parsed.pois) {
-        const description =
-          poiJson.content?.story_paragraphs && Array.isArray(poiJson.content.story_paragraphs)
-            ? (poiJson.content.story_paragraphs as string[]).join('\n\n')
-            : '';
+        // Handle description from different JSON formats
+        let description = '';
+        if (poiJson.description) {
+          description = poiJson.description;
+        } else if (
+          poiJson.content?.story_paragraphs &&
+          Array.isArray(poiJson.content.story_paragraphs)
+        ) {
+          description = (poiJson.content.story_paragraphs as string[]).join('\n\n');
+        }
+
+        // Handle coordinates from different JSON formats
+        const lat = poiJson.lat ?? poiJson.latitude;
+        const lng = poiJson.lng ?? poiJson.longitude;
+
+        if (lat == null || lng == null) {
+          this.errorMessage.set(`POI ${poiJson.id} is missing coordinates (lat/lng or latitude/longitude).`);
+          continue;
+        }
 
         const row: SupabasePoiRow = {
           id: poiJson.id,
           tour_id: supabaseTour.id,
           order_index: poiJson.order_index ?? 0,
-          lat: poiJson.lat,
-          lng: poiJson.lng,
+          lat,
+          lng,
           title: poiJson.title,
           address: poiJson.address ?? null,
           description,
           audio_url: null,
-          is_published: poiJson.is_published ?? true,
+          is_published: poiJson.published ?? poiJson.is_published ?? true,
         };
 
         await this.poisService.upsertPoi(row);
@@ -404,8 +445,6 @@ export class AdminToursPageComponent implements OnInit {
       this.refresh();
     } catch (e) {
       this.errorMessage.set('Failed to import tour JSON.');
-    } finally {
-      input.value = '';
     }
   }
 
@@ -415,5 +454,19 @@ export class AdminToursPageComponent implements OnInit {
     }
     const idx = url.lastIndexOf('/');
     return idx >= 0 ? url.substring(idx + 1) : url;
+  }
+
+  // Public method for testing - can be called from browser console
+  async importJsonFromString(jsonString: string): Promise<void> {
+    const blob = new Blob([jsonString], { type: 'application/json' });
+    const file = new File([blob], 'westminister.json', { type: 'application/json' });
+    await this.importJsonFromFile(file);
+  }
+}
+
+// Expose component instance globally for testing
+declare global {
+  interface Window {
+    adminToursComponent?: AdminToursPageComponent;
   }
 }

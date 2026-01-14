@@ -18,7 +18,7 @@ describe('CityHistoryWalks admin tours CRUD', () => {
     cy.url().should('include', '/admin/dashboard');
 
     // Use dashboard button to open tours manager
-    cy.contains('Open tours manager').click();
+    cy.contains('a', 'Manage tours').click({ force: true });
     cy.url().should('include', '/admin/tours');
 
     // Ensure at least one tour is present and selectable

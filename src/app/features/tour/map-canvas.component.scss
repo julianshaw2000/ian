@@ -30,31 +30,30 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 0 0 2px #ffffff, 0 4px 8px rgba(15, 23, 42, 0.4);
+  box-shadow: 0 0 0 2px var(--mat-sys-surface),
+    0 4px 8px color-mix(in srgb, var(--mat-sys-on-surface) 25%, transparent);
 }
 
 .vh-poi-marker--current {
-  background-color: #2e7d32;
-  color: #ffffff;
+  background-color: var(--btn-success-bg);
+  color: var(--text-primary);
 }
 
 .vh-poi-marker--visited {
-  background-color: #fb8c00;
-  color: #ffffff;
+  background-color: var(--btn-warning-bg);
+  color: var(--text-primary);
 }
 
 .vh-poi-marker--upcoming {
-  background-color: #0288d1;
-  color: #ffffff;
+  background-color: var(--btn-primary-bg);
+  color: var(--text-primary);
 }
 
 .vh-user-puck {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  border: 3px solid #ffffff;
-  background-color: #1976d2;
-  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.5);
+  border: 3px solid var(--mat-sys-surface);
+  background-color: var(--btn-primary-bg);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--btn-primary-bg) 50%, transparent);
 }
-
-

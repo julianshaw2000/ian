@@ -1,11 +1,15 @@
 <div class="vh-admin-shell">
-  <mat-toolbar color="primary" class="vh-admin-toolbar">
+  <mat-toolbar class="vh-admin-toolbar">
     <span class="vh-admin-title">
       <mat-icon>place</mat-icon>
       <span>Stops manager</span>
     </span>
 
     <span class="vh-admin-toolbar-spacer"></span>
+
+    <span *ngIf="auth.userEmail() as email" class="vh-admin-user">
+      {{ email }}
+    </span>
 
     <a mat-button [routerLink]="['/admin/tours']">
       <mat-icon>map</mat-icon>
@@ -24,6 +28,13 @@
   </mat-toolbar>
 
   <main class="vh-admin-main">
+    <div class="vh-admin-nav-back">
+      <a mat-stroked-button [routerLink]="['/admin/tours']" color="primary">
+        <mat-icon>arrow_back</mat-icon>
+        <span>Back to Tours</span>
+      </a>
+    </div>
+
     <section class="vh-admin-layout">
       <mat-card class="vh-admin-list">
         <mat-card-header>
@@ -44,15 +55,23 @@
                 (click)="editPoi(poi)"
                 [class.vh-admin-pois-selected]="poi.id === selectedId()"
               >
-                <span class="vh-admin-poi-title">
-                  {{ poi.order_index }}. {{ poi.title }}
-                </span>
+                <span class="vh-admin-poi-title"> {{ poi.order_index }}. {{ poi.title }} </span>
                 <span class="vh-admin-poi-meta">
-                  {{ poi.address || 'No address' }} · Lat {{ poi.lat }} · Lng {{ poi.lng }}
-                  <span *ngIf="poi.is_published">· Published</span>
-                  <span *ngIf="!poi.is_published">· Draft</span>
+                  {{ poi.address || 'No address' }}
+                  <!-- <span *ngIf="poi.is_published">· Published</span>
+                  <span *ngIf="!poi.is_published">· Draft</span> -->
                 </span>
               </button>
+
+              <a
+                mat-icon-button
+                color="primary"
+                [routerLink]="['/admin/pois', poi.id, 'media']"
+                [queryParams]="{ tourId: tourId }"
+                aria-label="Manage media"
+              >
+                <mat-icon>collections</mat-icon>
+              </a>
 
               <button
                 mat-icon-button
@@ -63,15 +82,6 @@
               >
                 <mat-icon>delete</mat-icon>
               </button>
-
-              <a
-                mat-icon-button
-                color="primary"
-                [routerLink]="['/admin/pois', poi.id, 'media']"
-                aria-label="Manage media"
-              >
-                <mat-icon>collections</mat-icon>
-              </a>
             </li>
           </ul>
         </mat-card-content>
@@ -132,22 +142,33 @@
               </div>
 
               <div class="vh-admin-form-full vh-admin-toggle-row">
-                <mat-slide-toggle formControlName="is_published">
-                  Published
-                </mat-slide-toggle>
+                <mat-slide-toggle formControlName="is_published"> Published </mat-slide-toggle>
               </div>
             </div>
 
-            <button
-              mat-raised-button
-              color="primary"
-              type="submit"
-              class="vh-admin-save"
-              [disabled]="saving()"
-            >
-              <mat-icon>save</mat-icon>
-              <span>Save</span>
-            </button>
+            <div class="vh-admin-actions">
+              <button
+                mat-raised-button
+                color="primary"
+                type="submit"
+                class="vh-admin-save"
+                [disabled]="saving()"
+              >
+                <mat-icon>save</mat-icon>
+                <span>Save</span>
+              </button>
+
+              <button
+                mat-stroked-button
+                type="button"
+                class="vh-admin-cancel"
+                [disabled]="saving()"
+                (click)="newPoi()"
+              >
+                <mat-icon>close</mat-icon>
+                <span>Cancel</span>
+              </button>
+            </div>
           </form>
 
           <p *ngIf="errorMessage()" class="vh-admin-error">
@@ -158,5 +179,3 @@
     </section>
   </main>
 </div>
-
-

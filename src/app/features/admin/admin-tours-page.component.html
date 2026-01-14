@@ -1,5 +1,5 @@
 <div class="vh-admin-shell">
-  <mat-toolbar color="primary" class="vh-admin-toolbar">
+  <mat-toolbar class="vh-admin-toolbar">
     <span class="vh-admin-title">
       <mat-icon>map</mat-icon>
       <span>Tours manager</span>
@@ -178,18 +178,33 @@
               </div>
             </div>
 
-            <button
-              mat-raised-button
-              color="primary"
-              type="submit"
-              class="vh-admin-save"
-              [disabled]="saving()"
-              [ngClass]="{ 'vh-admin-button--mobile': isMobile() }"
-              matTooltip="Save tour"
-            >
-              <mat-icon>save</mat-icon>
-              <span>Save</span>
-            </button>
+            <div class="vh-admin-actions">
+              <button
+                mat-raised-button
+                color="primary"
+                type="submit"
+                class="vh-admin-save"
+                [disabled]="saving()"
+                [ngClass]="{ 'vh-admin-button--mobile': isMobile() }"
+                matTooltip="Save tour"
+              >
+                <mat-icon>save</mat-icon>
+                <span>Save</span>
+              </button>
+
+              <button
+                mat-stroked-button
+                type="button"
+                class="vh-admin-cancel"
+                [disabled]="saving()"
+                [ngClass]="{ 'vh-admin-button--mobile': isMobile() }"
+                (click)="newTour()"
+                matTooltip="Cancel changes"
+              >
+                <mat-icon>close</mat-icon>
+                <span>Cancel</span>
+              </button>
+            </div>
 
             <div class="vh-admin-json-row">
               <button

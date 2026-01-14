@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { from, map, Observable } from 'rxjs';
 import { Poi } from '../models/tour.models';
-
-const SUPABASE_URL = 'https://vkllskiarxtcwedrwrys.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_LAhbVtMIVk4b861pyPZkiw_UQAO4Exp';
+import { getSupabaseClient } from './supabase-client';
 
 export interface SupabasePoiRow {
   id: string;
@@ -32,11 +29,7 @@ export interface SupabasePoiMediaRow {
   providedIn: 'root'
 })
 export class SupabasePoisService {
-  private readonly client: SupabaseClient;
-
-  constructor() {
-    this.client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  }
+  private readonly client = getSupabaseClient();
 
   /**
    * Load published POIs (and their media) for a tour and map them into the existing Poi model.

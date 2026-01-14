@@ -1,7 +1,7 @@
 [
   {
     "id": "poi-1-westminster",
-    "tourId": "london-vivid-history",
+    "tourId": "london-city-history",
     "orderIndex": 1,
     "lat": 51.5007,
     "lng": -0.1246,
@@ -10,7 +10,7 @@
   },
   {
     "id": "poi-2-parliament",
-    "tourId": "london-vivid-history",
+    "tourId": "london-city-history",
     "orderIndex": 2,
     "lat": 51.4995,
     "lng": -0.1248,
@@ -19,7 +19,7 @@
   },
   {
     "id": "poi-3-whitehall",
-    "tourId": "london-vivid-history",
+    "tourId": "london-city-history",
     "orderIndex": 3,
     "lat": 51.5034,
     "lng": -0.1276,
@@ -28,7 +28,7 @@
   },
   {
     "id": "poi-4-trafalgar",
-    "tourId": "london-vivid-history",
+    "tourId": "london-city-history",
     "orderIndex": 4,
     "lat": 51.508,
     "lng": -0.1281,
@@ -37,7 +37,7 @@
   },
   {
     "id": "poi-5-covent-garden",
-    "tourId": "london-vivid-history",
+    "tourId": "london-city-history",
     "orderIndex": 5,
     "lat": 51.5119,
     "lng": -0.123,
@@ -46,7 +46,7 @@
   },
   {
     "id": "poi-6-seveno-dials",
-    "tourId": "london-vivid-history",
+    "tourId": "london-city-history",
     "orderIndex": 6,
     "lat": 51.5136,
     "lng": -0.1277,
@@ -54,5 +54,3 @@
     "address": "Seven Dials, London WC2H 9HD"
   }
 ]
-
-

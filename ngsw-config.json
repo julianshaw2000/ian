@@ -21,9 +21,7 @@
       "installMode": "lazy",
       "updateMode": "prefetch",
       "resources": {
-        "files": [
-          "/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
-        ]
+        "files": ["/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"]
       }
     }
   ],
@@ -31,12 +29,12 @@
     {
       "name": "tour-data",
       "urls": [
-        "/data/london-vivid-history-tour.json",
-        "/data/london-vivid-history-route.geojson",
-        "/data/london-vivid-history-pois.json",
-        "/data/brixton-vivid-history-tour.json",
-        "/data/brixton-vivid-history-route.geojson",
-        "/data/brixton-vivid-history-pois.json"
+        "/data/london-city-history-tour.json",
+        "/data/london-city-history-route.geojson",
+        "/data/london-city-history-pois.json",
+        "/data/brixton-city-history-tour.json",
+        "/data/brixton-city-history-route.geojson",
+        "/data/brixton-city-history-pois.json"
       ],
       "cacheConfig": {
         "strategy": "performance",
@@ -47,10 +45,7 @@
     },
     {
       "name": "audio",
-      "urls": [
-        "/audio/london/.*",
-        "/audio/brixton/.*"
-      ],
+      "urls": ["/audio/london/.*", "/audio/brixton/.*"],
       "cacheConfig": {
         "strategy": "performance",
         "maxSize": 50,

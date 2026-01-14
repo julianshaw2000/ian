@@ -1,5 +1,5 @@
 <div class="vh-tour">
-  <mat-toolbar color="primary" class="vh-tour-toolbar">
+  <mat-toolbar class="vh-tour-toolbar">
     <button mat-icon-button type="button" (click)="goHome()" aria-label="Back to home">
       <mat-icon>arrow_back</mat-icon>
     </button>
@@ -168,9 +168,9 @@
     <section *ngSwitchCase="'help'" class="vh-mode-full vh-help">
       <h2>How this tour works</h2>
       <ul>
-        <li>Follow the blue line on the map to stay on the route.</li>
+        <li>Follow the route line on the map to stay on track.</li>
         <li>
-          Green marker shows your current stop; orange markers are upcoming or previous stops.
+          Your current stop and the upcoming stops are highlighted on the map.
         </li>
         <li>Use Split view for a balance of map and story; switch to Map for pure navigation.</li>
         <li>Gallery highlights photos from each stop; audio will bring the stories to life.</li>

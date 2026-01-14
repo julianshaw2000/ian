@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
-
-const SUPABASE_URL = 'https://vkllskiarxtcwedrwrys.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_LAhbVtMIVk4b861pyPZkiw_UQAO4Exp';
+import { getSupabaseClient } from './supabase-client';
 
 // Buckets must exist in Supabase:
 // - cityhistorywalks-media: for images and audio
@@ -14,11 +11,7 @@ const ROUTES_BUCKET = 'cityhistorywalks-routes';
   providedIn: 'root'
 })
 export class SupabaseMediaService {
-  private readonly client: SupabaseClient;
-
-  constructor() {
-    this.client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  }
+  private readonly client = getSupabaseClient();
 
   async uploadTourCoverImage(tourId: string, file: File): Promise<{ url?: string; error?: string }> {
     const path = `tours/${tourId}/cover/${Date.now()}-${file.name}`;
@@ -33,6 +26,32 @@ export class SupabaseMediaService {
   async uploadPoiAudio(tourId: string, poiId: string, file: File): Promise<{ url?: string; error?: string }> {
     const path = `tours/${tourId}/pois/${poiId}/audio/${Date.now()}-${file.name}`;
     return this.uploadAndGetPublicUrl(MEDIA_BUCKET, path, file);
+  }
+
+  async uploadPoiImage(
+    tourId: string,
+    poiId: string,
+    file: File
+  ): Promise<{ url?: string; error?: string }> {
+    const path = `tours/${tourId}/pois/${poiId}/images/${Date.now()}-${file.name}`;
+    return this.uploadAndGetPublicUrl(MEDIA_BUCKET, path, file);
+  }
+
+  async uploadPoiVideo(
+    tourId: string,
+    poiId: string,
+    file: File
+  ): Promise<{ url?: string; error?: string }> {
+    const path = `tours/${tourId}/pois/${poiId}/video/${Date.now()}-${file.name}`;
+    return this.uploadAndGetPublicUrl(MEDIA_BUCKET, path, file);
+  }
+
+  async deleteMediaObject(bucket: string, path: string): Promise<{ error?: string }> {
+    const { error } = await this.client.storage.from(bucket).remove([path]);
+    if (error) {
+      return { error: error.message };
+    }
+    return {};
   }
 
   private async uploadAndGetPublicUrl(

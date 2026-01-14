@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { ALL_TOURS, BRIXTON_POIS, LONDON_POIS } from '../data/sample-tour';
 import type { Tour, Poi } from '../models/tour.models';
 
-const DB_NAME = 'vivid-history';
+const DB_NAME = 'city-history';
 const DB_VERSION = 1;
 const TOURS_STORE = 'tours';
 const POIS_STORE = 'pois';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OfflineToursService {
   init(): void {
@@ -54,5 +54,3 @@ export class OfflineToursService {
     pois.forEach((poi) => store.put(poi));
   }
 }
-
-

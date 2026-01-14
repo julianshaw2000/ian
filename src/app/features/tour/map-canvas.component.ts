@@ -61,7 +61,7 @@ export class MapCanvasComponent implements AfterViewInit, OnChanges {
     }
 
     if (changes['routeGeoJsonUrl'] && this.routeGeoJsonUrl) {
-      this.mapService.setRouteFromGeoJson(this.map, 'tour', this.routeGeoJsonUrl);
+      void this.mapService.setRouteFromGeoJson(this.map, 'tour', this.routeGeoJsonUrl);
     }
 
     if (changes['pois'] || changes['currentPoiId']) {
@@ -95,7 +95,7 @@ export class MapCanvasComponent implements AfterViewInit, OnChanges {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         if (this.routeGeoJsonUrl) {
-          this.mapService.setRouteFromGeoJson(this.map!, 'tour', this.routeGeoJsonUrl);
+          void this.mapService.setRouteFromGeoJson(this.map!, 'tour', this.routeGeoJsonUrl);
         }
 
         this.markers = this.mapService.createPoiMarkers(

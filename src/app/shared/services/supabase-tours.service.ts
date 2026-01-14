@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { from, map, Observable } from 'rxjs';
+import { getSupabaseClient } from './supabase-client';
 
 export interface SupabaseTour {
   id: string;
@@ -15,18 +15,11 @@ export interface SupabaseTour {
   is_published: boolean;
 }
 
-const SUPABASE_URL = 'https://vkllskiarxtcwedrwrys.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_LAhbVtMIVk4b861pyPZkiw_UQAO4Exp';
-
 @Injectable({
   providedIn: 'root'
 })
 export class SupabaseToursService {
-  private readonly client: SupabaseClient;
-
-  constructor() {
-    this.client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  }
+  private readonly client = getSupabaseClient();
 
   getPublishedTours(): Observable<SupabaseTour[]> {
     return from(
