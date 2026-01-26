@@ -9,9 +9,6 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  background-color: var(--vh-glass-bg);
-  border-bottom: 1px solid var(--vh-glass-border);
-  backdrop-filter: blur(20px) saturate(1.8);
 }
 
 .vh-admin-title {
@@ -36,7 +33,6 @@
 
 .vh-admin-summary {
   margin-bottom: 16px;
-  background-color: var(--vh-card-bg);
 }
 
 .vh-admin-summary ul {

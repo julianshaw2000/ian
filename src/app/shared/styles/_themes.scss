@@ -19,62 +19,55 @@
     color-scheme: light;
 
     // Custom CSS variables for your specific colors
-    --city-dusty-mauve: #{palettes.$dusty-mauve};
-    --city-muted-teal: #{palettes.$muted-teal};
-    --city-beige: #{palettes.$beige};
-    --city-powder-blush: #{palettes.$powder-blush};
-    --city-light-coral: #{palettes.$light-coral};
+    --vivid-dusty-mauve: #{palettes.$dusty-mauve};
+    --vivid-muted-teal: #{palettes.$muted-teal};
+    --vivid-beige: #{palettes.$beige};
+    --vivid-powder-blush: #{palettes.$powder-blush};
+    --vivid-light-coral: #{palettes.$light-coral};
 
     // Semantic text color variables
     --text-primary: var(--mat-sys-on-surface);
     --text-secondary: var(--mat-sys-on-surface-variant);
-    --text-muted: color-mix(in srgb, var(--city-dusty-mauve) 75%, transparent);
+    --text-muted: color-mix(in srgb, var(--vivid-dusty-mauve) 75%, transparent);
     --text-interactive: var(--mat-sys-primary);
-    --text-brand: var(--city-dusty-mauve);
-    --text-success: var(--city-muted-teal);
-    --text-warning: var(--city-powder-blush);
+    --text-brand: var(--vivid-dusty-mauve);
+    --text-success: var(--vivid-muted-teal);
+    --text-warning: var(--vivid-powder-blush);
     --text-error: var(--mat-sys-error);
-    --text-accent: var(--city-muted-teal);
+    --text-accent: var(--vivid-muted-teal);
     --text-on-primary: var(--mat-sys-on-primary);
     --text-on-secondary: var(--mat-sys-on-secondary);
     --text-inverse: var(--mat-sys-surface);
 
     // Semantic button color variables
-    --btn-primary-bg: var(--city-dusty-mauve);
+    --btn-primary-bg: var(--vivid-dusty-mauve);
     --btn-primary-text: var(--mat-sys-on-primary);
-    --btn-primary-hover-bg: color-mix(in srgb, var(--city-dusty-mauve) 90%, white);
-    --btn-secondary-bg: var(--city-muted-teal);
+    --btn-primary-hover-bg: color-mix(in srgb, var(--vivid-dusty-mauve) 90%, white);
+    --btn-secondary-bg: var(--vivid-muted-teal);
     --btn-secondary-text: var(--mat-sys-on-secondary);
-    --btn-secondary-hover-bg: color-mix(in srgb, var(--city-muted-teal) 90%, white);
-    --btn-brand-bg: var(--city-dusty-mauve);
+    --btn-secondary-hover-bg: color-mix(in srgb, var(--vivid-muted-teal) 90%, white);
+    --btn-brand-bg: var(--vivid-dusty-mauve);
     --btn-brand-text: white;
-    --btn-brand-hover-bg: color-mix(in srgb, var(--city-dusty-mauve) 85%, black);
-    --btn-success-bg: var(--city-muted-teal);
+    --btn-brand-hover-bg: color-mix(in srgb, var(--vivid-dusty-mauve) 85%, black);
+    --btn-success-bg: var(--vivid-muted-teal);
     --btn-success-text: white;
-    --btn-success-hover-bg: color-mix(in srgb, var(--city-muted-teal) 85%, black);
-    --btn-warning-bg: var(--city-powder-blush);
+    --btn-success-hover-bg: color-mix(in srgb, var(--vivid-muted-teal) 85%, black);
+    --btn-warning-bg: var(--vivid-powder-blush);
     --btn-warning-text: var(--mat-sys-on-tertiary);
-    --btn-warning-hover-bg: color-mix(in srgb, var(--city-powder-blush) 85%, black);
+    --btn-warning-hover-bg: color-mix(in srgb, var(--vivid-powder-blush) 85%, black);
     --btn-error-bg: var(--mat-sys-error);
     --btn-error-text: var(--mat-sys-on-error);
     --btn-error-hover-bg: color-mix(in srgb, var(--mat-sys-error) 85%, black);
-    --btn-outline-border: var(--city-dusty-mauve);
-    --btn-outline-text: var(--city-dusty-mauve);
-    --btn-outline-hover-bg: color-mix(in srgb, var(--city-dusty-mauve) 10%, transparent);
-    --btn-ghost-text: var(--city-dusty-mauve);
-    --btn-ghost-hover-bg: color-mix(in srgb, var(--city-dusty-mauve) 8%, transparent);
-
-    // Shared UI surface helpers (theme-aware)
-    --vh-glass-bg: color-mix(in srgb, var(--mat-sys-surface) 70%, transparent);
-    --vh-glass-border: var(--mat-sys-outline-variant);
-    --vh-card-bg: var(--mat-sys-surface-container);
-    --vh-card-elevation: var(--mat-sys-elevation-level2);
-    --vh-card-elevation-hover: var(--mat-sys-elevation-level3);
+    --btn-outline-border: var(--vivid-dusty-mauve);
+    --btn-outline-text: var(--vivid-dusty-mauve);
+    --btn-outline-hover-bg: color-mix(in srgb, var(--vivid-dusty-mauve) 10%, transparent);
+    --btn-ghost-text: var(--vivid-dusty-mauve);
+    --btn-ghost-hover-bg: color-mix(in srgb, var(--vivid-dusty-mauve) 8%, transparent);
 
     // Gradient variables
-    --city-gradient-primary: linear-gradient(45deg, #{palettes.$dusty-mauve}, #{palettes.$muted-teal});
-    --city-gradient-secondary: linear-gradient(135deg, #{palettes.$beige}, #{palettes.$powder-blush});
-    --city-gradient-accent: linear-gradient(90deg, #{palettes.$powder-blush}, #{palettes.$light-coral});
+    --vivid-gradient-primary: linear-gradient(45deg, #{palettes.$dusty-mauve}, #{palettes.$muted-teal});
+    --vivid-gradient-secondary: linear-gradient(135deg, #{palettes.$beige}, #{palettes.$powder-blush});
+    --vivid-gradient-accent: linear-gradient(90deg, #{palettes.$powder-blush}, #{palettes.$light-coral});
 }
 
 // Dark Theme
@@ -94,72 +87,53 @@
     color-scheme: dark;
 
     // Custom CSS variables for your specific colors (adjusted for dark theme)
-    --city-dusty-mauve: #{color.adjust(palettes.$dusty-mauve, $lightness: 10%)};
-    --city-muted-teal: #{color.adjust(palettes.$muted-teal, $lightness: 15%)};
-    --city-beige: #{color.adjust(palettes.$beige, $lightness: -20%)};
-    --city-powder-blush: #{color.adjust(palettes.$powder-blush, $lightness: 5%)};
-    --city-light-coral: #{color.adjust(palettes.$light-coral, $lightness: 10%)};
+    --vivid-dusty-mauve: #{color.adjust(palettes.$dusty-mauve, $lightness: 10%)};
+    --vivid-muted-teal: #{color.adjust(palettes.$muted-teal, $lightness: 15%)};
+    --vivid-beige: #{color.adjust(palettes.$beige, $lightness: -20%)};
+    --vivid-powder-blush: #{color.adjust(palettes.$powder-blush, $lightness: 5%)};
+    --vivid-light-coral: #{color.adjust(palettes.$light-coral, $lightness: 10%)};
 
     // Semantic text color variables (adjusted for dark theme)
     --text-primary: var(--mat-sys-on-surface);
     --text-secondary: var(--mat-sys-on-surface-variant);
-    --text-muted: color-mix(in srgb, var(--city-dusty-mauve) 80%, transparent);
+    --text-muted: color-mix(in srgb, var(--vivid-dusty-mauve) 80%, transparent);
     --text-interactive: var(--mat-sys-primary);
-    --text-brand: var(--city-dusty-mauve);
-    --text-success: var(--city-muted-teal);
-    --text-warning: var(--city-light-coral);
+    --text-brand: var(--vivid-dusty-mauve);
+    --text-success: var(--vivid-muted-teal);
+    --text-warning: var(--vivid-light-coral);
     --text-error: var(--mat-sys-error);
-    --text-accent: var(--city-muted-teal);
+    --text-accent: var(--vivid-muted-teal);
     --text-on-primary: var(--mat-sys-on-primary);
     --text-on-secondary: var(--mat-sys-on-secondary);
     --text-inverse: var(--mat-sys-surface);
 
     // Semantic button color variables (adjusted for dark theme)
-    --btn-primary-bg: var(--city-dusty-mauve);
+    --btn-primary-bg: var(--vivid-dusty-mauve);
     --btn-primary-text: var(--mat-sys-on-primary);
-    --btn-primary-hover-bg: color-mix(in srgb, var(--city-dusty-mauve) 80%, white);
-    --btn-secondary-bg: var(--city-muted-teal);
+    --btn-primary-hover-bg: color-mix(in srgb, var(--vivid-dusty-mauve) 80%, white);
+    --btn-secondary-bg: var(--vivid-muted-teal);
     --btn-secondary-text: var(--mat-sys-on-secondary);
-    --btn-secondary-hover-bg: color-mix(in srgb, var(--city-muted-teal) 80%, white);
-    --btn-brand-bg: var(--city-dusty-mauve);
+    --btn-secondary-hover-bg: color-mix(in srgb, var(--vivid-muted-teal) 80%, white);
+    --btn-brand-bg: var(--vivid-dusty-mauve);
     --btn-brand-text: white;
-    --btn-brand-hover-bg: color-mix(in srgb, var(--city-dusty-mauve) 70%, white);
-    --btn-success-bg: var(--city-muted-teal);
+    --btn-brand-hover-bg: color-mix(in srgb, var(--vivid-dusty-mauve) 70%, white);
+    --btn-success-bg: var(--vivid-muted-teal);
     --btn-success-text: white;
-    --btn-success-hover-bg: color-mix(in srgb, var(--city-muted-teal) 70%, white);
-    --btn-warning-bg: var(--city-light-coral);
+    --btn-success-hover-bg: color-mix(in srgb, var(--vivid-muted-teal) 70%, white);
+    --btn-warning-bg: var(--vivid-light-coral);
     --btn-warning-text: var(--mat-sys-on-tertiary);
-    --btn-warning-hover-bg: color-mix(in srgb, var(--city-light-coral) 70%, white);
+    --btn-warning-hover-bg: color-mix(in srgb, var(--vivid-light-coral) 70%, white);
     --btn-error-bg: var(--mat-sys-error);
     --btn-error-text: var(--mat-sys-on-error);
     --btn-error-hover-bg: color-mix(in srgb, var(--mat-sys-error) 70%, white);
-    --btn-outline-border: var(--city-dusty-mauve);
-    --btn-outline-text: var(--city-dusty-mauve);
-    --btn-outline-hover-bg: color-mix(in srgb, var(--city-dusty-mauve) 15%, transparent);
-    --btn-ghost-text: var(--city-dusty-mauve);
-    --btn-ghost-hover-bg: color-mix(in srgb, var(--city-dusty-mauve) 12%, transparent);
-
-    // Shared UI surface helpers (theme-aware)
-    --vh-glass-bg: color-mix(in srgb, var(--mat-sys-surface) 65%, transparent);
-    --vh-glass-border: var(--mat-sys-outline-variant);
-    --vh-card-bg: var(--mat-sys-surface-container);
-    --vh-card-elevation: var(--mat-sys-elevation-level2);
-    --vh-card-elevation-hover: var(--mat-sys-elevation-level3);
+    --btn-outline-border: var(--vivid-dusty-mauve);
+    --btn-outline-text: var(--vivid-dusty-mauve);
+    --btn-outline-hover-bg: color-mix(in srgb, var(--vivid-dusty-mauve) 15%, transparent);
+    --btn-ghost-text: var(--vivid-dusty-mauve);
+    --btn-ghost-hover-bg: color-mix(in srgb, var(--vivid-dusty-mauve) 12%, transparent);
 
     // Gradient variables for dark theme
-    --city-gradient-primary: linear-gradient(
-        45deg,
-        #{color.adjust(palettes.$dusty-mauve, $lightness: 10%)},
-        #{color.adjust(palettes.$muted-teal, $lightness: 15%)}
-    );
-    --city-gradient-secondary: linear-gradient(
-        135deg,
-        #{color.adjust(palettes.$beige, $lightness: -20%)},
-        #{color.adjust(palettes.$powder-blush, $lightness: 5%)}
-    );
-    --city-gradient-accent: linear-gradient(
-        90deg,
-        #{color.adjust(palettes.$powder-blush, $lightness: 5%)},
-        #{color.adjust(palettes.$light-coral, $lightness: 10%)}
-    );
+    --vivid-gradient-primary: linear-gradient(45deg, #{color.adjust(palettes.$dusty-mauve, $lightness: 10%)}, #{color.adjust(palettes.$muted-teal, $lightness: 15%)});
+    --vivid-gradient-secondary: linear-gradient(135deg, #{color.adjust(palettes.$beige, $lightness: -20%)}, #{color.adjust(palettes.$powder-blush, $lightness: 5%)});
+    --vivid-gradient-accent: linear-gradient(90deg, #{color.adjust(palettes.$powder-blush, $lightness: 5%)}, #{color.adjust(palettes.$light-coral, $lightness: 10%)});
 }

@@ -9,9 +9,6 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  background-color: var(--vh-glass-bg);
-  border-bottom: 1px solid var(--vh-glass-border);
-  backdrop-filter: blur(20px) saturate(1.8);
 }
 
 .vh-admin-title {
@@ -40,7 +37,6 @@
 .vh-admin-list,
 .vh-admin-form {
   height: 100%;
-  background-color: var(--vh-card-bg);
 }
 
 .vh-admin-tours {
@@ -62,7 +58,7 @@
 }
 
 .vh-admin-tours-selected {
-  background-color: color-mix(in srgb, var(--mat-sys-primary) 12%, transparent);
+  background-color: rgba(25, 118, 210, 0.12);
 }
 
 .vh-admin-tour-title {
@@ -116,18 +112,6 @@
   margin-top: 12px;
 }
 
-.vh-admin-actions {
-  margin-top: 12px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 12px;
-  align-items: center;
-}
-
-.vh-admin-actions .vh-admin-save {
-  margin-top: 0;
-}
-
 .vh-admin-json-row {
   margin-top: 12px;
   display: flex;
@@ -177,6 +161,7 @@
 }
 
 @media (max-width: 600px) {
+
   /* Hide text labels inside toolbar and primary action buttons on small screens */
   .vh-admin-toolbar a.vh-admin-button--mobile span,
   .vh-admin-toolbar button.vh-admin-button--mobile span,

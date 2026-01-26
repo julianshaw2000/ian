@@ -48,6 +48,8 @@ export class MapCanvasComponent implements AfterViewInit, OnChanges {
   protected map: Map | null = null;
   private markers: Marker[] = [];
   private userMarker: Marker | null = null;
+  private hasInitiallyFitToPois = false;
+  private mapHasLoaded = false;
 
   constructor(private readonly mapService: MapService, private readonly destroyRef: DestroyRef) {}
 
@@ -56,7 +58,7 @@ export class MapCanvasComponent implements AfterViewInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (!this.map) {
+    if (!this.map || !this.mapHasLoaded) {
       return;
     }
 
@@ -73,6 +75,17 @@ export class MapCanvasComponent implements AfterViewInit, OnChanges {
         this.visitedIds ?? new Set(),
         (poi) => this.poiSelected.emit(poi)
       );
+
+      // Only fit to POIs on first load when POIs are provided
+      if (changes['pois'] && this.pois.length > 0 && !this.hasInitiallyFitToPois) {
+        this.hasInitiallyFitToPois = true;
+        // Add padding for bottom sheet UI overlay (adjust as needed)
+        this.mapService.fitMapToPois(this.map, this.pois, {
+          padding: { top: 50, bottom: 200, left: 50, right: 50 },
+          maxZoom: 16,
+          duration: 1500
+        });
+      }
     }
   }
 
@@ -81,11 +94,12 @@ export class MapCanvasComponent implements AfterViewInit, OnChanges {
       return;
     }
 
+    const container = this.mapContainer.nativeElement;
     const center: [number, number] =
       this.pois.length > 0 ? [this.pois[0].lng, this.pois[0].lat] : [-0.1246, 51.5007];
 
     this.map = this.mapService.initMap({
-      container: this.mapContainer.nativeElement,
+      container: container,
       center,
       zoom: 14,
       styleUrl: this.styleUrl,
@@ -94,6 +108,13 @@ export class MapCanvasComponent implements AfterViewInit, OnChanges {
     fromEvent(this.map, 'load')
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
+        this.mapHasLoaded = true;
+
+        // Force resize to ensure map fills container
+        setTimeout(() => {
+          this.map?.resize();
+        }, 100);
+
         if (this.routeGeoJsonUrl) {
           void this.mapService.setRouteFromGeoJson(this.map!, 'tour', this.routeGeoJsonUrl);
         }
@@ -105,6 +126,16 @@ export class MapCanvasComponent implements AfterViewInit, OnChanges {
           this.visitedIds ?? new Set(),
           (poi) => this.poiSelected.emit(poi)
         );
+
+        // Fit to POIs on initial load
+        if (this.pois.length > 0 && !this.hasInitiallyFitToPois) {
+          this.hasInitiallyFitToPois = true;
+          this.mapService.fitMapToPois(this.map!, this.pois, {
+            padding: { top: 50, bottom: 200, left: 50, right: 50 },
+            maxZoom: 16,
+            duration: 1500
+          });
+        }
       });
   }
 
@@ -141,6 +172,18 @@ export class MapCanvasComponent implements AfterViewInit, OnChanges {
         this.hasUserLocation.set(false);
       }
     );
+  }
+
+  protected recenterToPois(): void {
+    if (!this.map) {
+      return;
+    }
+
+    this.mapService.fitMapToPois(this.map, this.pois, {
+      padding: { top: 50, bottom: 200, left: 50, right: 50 },
+      maxZoom: 16,
+      duration: 1500
+    });
   }
 
   private resetMarkers(): void {

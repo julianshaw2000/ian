@@ -9,9 +9,6 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  background-color: var(--vh-glass-bg);
-  border-bottom: 1px solid var(--vh-glass-border);
-  backdrop-filter: blur(20px) saturate(1.8);
 }
 
 .vh-admin-title {
@@ -29,13 +26,6 @@
   padding: 16px;
 }
 
-.vh-admin-nav-back {
-  margin-bottom: 16px;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .vh-admin-layout {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.5fr);
@@ -47,7 +37,6 @@
 .vh-admin-list,
 .vh-admin-form {
   height: 100%;
-  background-color: var(--vh-card-bg);
 }
 
 .vh-admin-pois {
@@ -69,7 +58,7 @@
 }
 
 .vh-admin-pois-selected {
-  background-color: color-mix(in srgb, var(--mat-sys-primary) 12%, transparent);
+  background-color: rgba(25, 118, 210, 0.12);
 }
 
 .vh-admin-poi-title {
@@ -111,18 +100,6 @@
 
 .vh-admin-save {
   margin-top: 12px;
-}
-
-.vh-admin-actions {
-  margin-top: 12px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 12px;
-  align-items: center;
-}
-
-.vh-admin-actions .vh-admin-save {
-  margin-top: 0;
 }
 
 .vh-admin-error {

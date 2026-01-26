@@ -28,8 +28,8 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: color-mix(in srgb, var(--mat-sys-surface) 70%, transparent);
-  color: var(--mat-sys-on-surface);
+  background-color: rgba(15, 23, 42, 0.6);
+  color: var(--text-primary);
 }
 
 .vh-poi-media__nav--prev {
@@ -44,7 +44,7 @@
   padding: 0.35rem 0.75rem;
   font-size: 0.8rem;
   color: var(--text-secondary);
-  background: linear-gradient(to right, color-mix(in srgb, var(--mat-sys-surface) 75%, transparent), transparent);
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.65), transparent);
 }
 
 .vh-poi-media__audio {
@@ -58,7 +58,7 @@
   bottom: 0;
   padding-top: 0.75rem;
   margin-top: 0.5rem;
-  background: linear-gradient(to top, color-mix(in srgb, var(--mat-sys-surface) 85%, transparent), transparent);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
   backdrop-filter: blur(12px);
   border-radius: 1rem 1rem 0 0;
 }
@@ -108,10 +108,6 @@
   /* In gallery view keep audio docked under the image, not sticky */
   position: static;
   margin-top: 1rem;
-  background: linear-gradient(
-    to top,
-    color-mix(in srgb, var(--mat-sys-surface) 92%, transparent),
-    color-mix(in srgb, var(--mat-sys-surface) 82%, transparent)
-  );
+  background: linear-gradient(to top, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.8));
   border-radius: 1rem;
 }

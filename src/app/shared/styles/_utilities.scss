@@ -1,123 +1,166 @@
-// Utility mixins and functions for using the city History color scheme
+// Utility mixins and functions for using the Vivid History color scheme
 
-// Mixin to apply city color backgrounds
-@mixin city-color-bg($color) {
-  @if $color == 'dusty-mauve' {
-    background-color: var(--city-dusty-mauve);
-  } @else if $color == 'muted-teal' {
-    background-color: var(--city-muted-teal);
-  } @else if $color == 'beige' {
-    background-color: var(--city-beige);
-  } @else if $color == 'powder-blush' {
-    background-color: var(--city-powder-blush);
-  } @else if $color == 'light-coral' {
-    background-color: var(--city-light-coral);
+// Mixin to apply vivid color backgrounds
+@mixin vivid-color-bg($color) {
+  @if $color =='dusty-mauve' {
+    background-color: var(--vivid-dusty-mauve);
+  }
+
+  @else if $color =='muted-teal' {
+    background-color: var(--vivid-muted-teal);
+  }
+
+  @else if $color =='beige' {
+    background-color: var(--vivid-beige);
+  }
+
+  @else if $color =='powder-blush' {
+    background-color: var(--vivid-powder-blush);
+  }
+
+  @else if $color =='light-coral' {
+    background-color: var(--vivid-light-coral);
   }
 }
 
-// Mixin to apply city color text
-@mixin city-color-text($color) {
-  @if $color == 'dusty-mauve' {
-    color: var(--city-dusty-mauve);
-  } @else if $color == 'muted-teal' {
-    color: var(--city-muted-teal);
-  } @else if $color == 'beige' {
-    color: var(--city-beige);
-  } @else if $color == 'powder-blush' {
-    color: var(--city-powder-blush);
-  } @else if $color == 'light-coral' {
-    color: var(--city-light-coral);
+// Mixin to apply vivid color text
+@mixin vivid-color-text($color) {
+  @if $color =='dusty-mauve' {
+    color: var(--vivid-dusty-mauve);
+  }
+
+  @else if $color =='muted-teal' {
+    color: var(--vivid-muted-teal);
+  }
+
+  @else if $color =='beige' {
+    color: var(--vivid-beige);
+  }
+
+  @else if $color =='powder-blush' {
+    color: var(--vivid-powder-blush);
+  }
+
+  @else if $color =='light-coral' {
+    color: var(--vivid-light-coral);
   }
 }
 
 // Mixin to apply semantic text colors
 @mixin semantic-text-color($type: 'primary') {
-  @if $type == 'primary' {
+  @if $type =='primary' {
     color: var(--text-primary);
-  } @else if $type == 'secondary' {
+  }
+
+  @else if $type =='secondary' {
     color: var(--text-secondary);
-  } @else if $type == 'muted' {
+  }
+
+  @else if $type =='muted' {
     color: var(--text-muted);
-  } @else if $type == 'interactive' {
+  }
+
+  @else if $type =='interactive' {
     color: var(--text-interactive);
-  } @else if $type == 'brand' {
+  }
+
+  @else if $type =='brand' {
     color: var(--text-brand);
-  } @else if $type == 'success' {
+  }
+
+  @else if $type =='success' {
     color: var(--text-success);
-  } @else if $type == 'warning' {
+  }
+
+  @else if $type =='warning' {
     color: var(--text-warning);
-  } @else if $type == 'error' {
+  }
+
+  @else if $type =='error' {
     color: var(--text-error);
-  } @else if $type == 'accent' {
+  }
+
+  @else if $type =='accent' {
     color: var(--text-accent);
-  } @else if $type == 'on-primary' {
+  }
+
+  @else if $type =='on-primary' {
     color: var(--text-on-primary);
-  } @else if $type == 'on-secondary' {
+  }
+
+  @else if $type =='on-secondary' {
     color: var(--text-on-secondary);
-  } @else if $type == 'inverse' {
+  }
+
+  @else if $type =='inverse' {
     color: var(--text-inverse);
   }
 }
 
-// Mixin to apply city gradients
-@mixin city-gradient-bg($type: 'primary') {
-  @if $type == 'primary' {
-    background: var(--city-gradient-primary);
-  } @else if $type == 'secondary' {
-    background: var(--city-gradient-secondary);
-  } @else if $type == 'accent' {
-    background: var(--city-gradient-accent);
+// Mixin to apply vivid gradients
+@mixin vivid-gradient-bg($type: 'primary') {
+  @if $type =='primary' {
+    background: var(--vivid-gradient-primary);
+  }
+
+  @else if $type =='secondary' {
+    background: var(--vivid-gradient-secondary);
+  }
+
+  @else if $type =='accent' {
+    background: var(--vivid-gradient-accent);
   }
 }
 
 // Background color utility classes
-.city-bg {
+.vivid-bg {
   &-dusty-mauve {
-    @include city-color-bg('dusty-mauve');
+    @include vivid-color-bg('dusty-mauve');
   }
 
   &-muted-teal {
-    @include city-color-bg('muted-teal');
+    @include vivid-color-bg('muted-teal');
   }
 
   &-beige {
-    @include city-color-bg('beige');
+    @include vivid-color-bg('beige');
   }
 
   &-powder-blush {
-    @include city-color-bg('powder-blush');
+    @include vivid-color-bg('powder-blush');
   }
 
   &-light-coral {
-    @include city-color-bg('light-coral');
+    @include vivid-color-bg('light-coral');
   }
 }
 
 // Custom color text utility classes
-.city-text {
+.vivid-text {
   &-dusty-mauve {
-    @include city-color-text('dusty-mauve');
+    @include vivid-color-text('dusty-mauve');
   }
 
   &-muted-teal {
-    @include city-color-text('muted-teal');
+    @include vivid-color-text('muted-teal');
   }
 
   &-beige {
-    @include city-color-text('beige');
+    @include vivid-color-text('beige');
   }
 
   &-powder-blush {
-    @include city-color-text('powder-blush');
+    @include vivid-color-text('powder-blush');
   }
 
   &-light-coral {
-    @include city-color-text('light-coral');
+    @include vivid-color-text('light-coral');
   }
 }
 
 // Semantic text color utility classes
 .text {
+
   // Primary text hierarchy
   &-primary {
     color: var(--text-primary);
@@ -244,35 +287,38 @@
 }
 
 // Gradient utility classes
-.city-gradient {
+.vivid-gradient {
   &-primary {
-    @include city-gradient-bg('primary');
+    @include vivid-gradient-bg('primary');
   }
 
   &-secondary {
-    @include city-gradient-bg('secondary');
+    @include vivid-gradient-bg('secondary');
   }
 
   &-accent {
-    @include city-gradient-bg('accent');
+    @include vivid-gradient-bg('accent');
   }
 }
 
 // Theme-aware shadow utilities
-.city-elevation {
+.vivid-elevation {
   &-1 {
-    box-shadow: 0 1px 3px color-mix(in srgb, var(--city-dusty-mauve) 12%, transparent),
-      0 1px 2px color-mix(in srgb, var(--city-dusty-mauve) 24%, transparent);
+    box-shadow:
+      0 1px 3px color-mix(in srgb, var(--vivid-dusty-mauve) 12%, transparent),
+      0 1px 2px color-mix(in srgb, var(--vivid-dusty-mauve) 24%, transparent);
   }
 
   &-2 {
-    box-shadow: 0 3px 6px color-mix(in srgb, var(--city-dusty-mauve) 15%, transparent),
-      0 2px 4px color-mix(in srgb, var(--city-dusty-mauve) 12%, transparent);
+    box-shadow:
+      0 3px 6px color-mix(in srgb, var(--vivid-dusty-mauve) 15%, transparent),
+      0 2px 4px color-mix(in srgb, var(--vivid-dusty-mauve) 12%, transparent);
   }
 
   &-3 {
-    box-shadow: 0 6px 12px color-mix(in srgb, var(--city-dusty-mauve) 15%, transparent),
-      0 4px 6px color-mix(in srgb, var(--city-dusty-mauve) 10%, transparent);
+    box-shadow:
+      0 6px 12px color-mix(in srgb, var(--vivid-dusty-mauve) 15%, transparent),
+      0 4px 6px color-mix(in srgb, var(--vivid-dusty-mauve) 10%, transparent);
   }
 }
 
@@ -329,67 +375,93 @@
   outline: none;
 
   // Size variations
-  @if $size == 'small' {
+  @if $size =='small' {
     padding: 0.375rem 0.75rem;
     font-size: 0.875rem;
     line-height: 1.25rem;
-  } @else if $size == 'medium' {
+  }
+
+  @else if $size =='medium' {
     padding: 0.5rem 1rem;
     font-size: 0.875rem;
     line-height: 1.5rem;
-  } @else if $size == 'large' {
+  }
+
+  @else if $size =='large' {
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
     line-height: 1.5rem;
   }
 
   // Variant styles
-  @if $variant == 'primary' {
+  @if $variant =='primary' {
     background-color: var(--btn-primary-bg);
     color: var(--btn-primary-text);
+
     &:hover:not(:disabled) {
       background-color: var(--btn-primary-hover-bg);
     }
-  } @else if $variant == 'secondary' {
+  }
+
+  @else if $variant =='secondary' {
     background-color: var(--btn-secondary-bg);
     color: var(--btn-secondary-text);
+
     &:hover:not(:disabled) {
       background-color: var(--btn-secondary-hover-bg);
     }
-  } @else if $variant == 'brand' {
+  }
+
+  @else if $variant =='brand' {
     background-color: var(--btn-brand-bg);
     color: var(--btn-brand-text);
+
     &:hover:not(:disabled) {
       background-color: var(--btn-brand-hover-bg);
     }
-  } @else if $variant == 'success' {
+  }
+
+  @else if $variant =='success' {
     background-color: var(--btn-success-bg);
     color: var(--btn-success-text);
+
     &:hover:not(:disabled) {
       background-color: var(--btn-success-hover-bg);
     }
-  } @else if $variant == 'warning' {
+  }
+
+  @else if $variant =='warning' {
     background-color: var(--btn-warning-bg);
     color: var(--btn-warning-text);
+
     &:hover:not(:disabled) {
       background-color: var(--btn-warning-hover-bg);
     }
-  } @else if $variant == 'error' {
+  }
+
+  @else if $variant =='error' {
     background-color: var(--btn-error-bg);
     color: var(--btn-error-text);
+
     &:hover:not(:disabled) {
       background-color: var(--btn-error-hover-bg);
     }
-  } @else if $variant == 'outline' {
+  }
+
+  @else if $variant =='outline' {
     background-color: transparent;
     border-color: var(--btn-outline-border);
     color: var(--btn-outline-text);
+
     &:hover:not(:disabled) {
       background-color: var(--btn-outline-hover-bg);
     }
-  } @else if $variant == 'ghost' {
+  }
+
+  @else if $variant =='ghost' {
     background-color: transparent;
     color: var(--btn-ghost-text);
+
     &:hover:not(:disabled) {
       background-color: var(--btn-ghost-hover-bg);
     }
@@ -409,12 +481,15 @@
 
 // Button utility classes
 .btn {
+
   // Primary button variants
   &-primary {
     @include semantic-button('primary', 'medium');
+
     &-sm {
       @include semantic-button('primary', 'small');
     }
+
     &-lg {
       @include semantic-button('primary', 'large');
     }
@@ -422,9 +497,11 @@
 
   &-secondary {
     @include semantic-button('secondary', 'medium');
+
     &-sm {
       @include semantic-button('secondary', 'small');
     }
+
     &-lg {
       @include semantic-button('secondary', 'large');
     }
@@ -432,9 +509,11 @@
 
   &-brand {
     @include semantic-button('brand', 'medium');
+
     &-sm {
       @include semantic-button('brand', 'small');
     }
+
     &-lg {
       @include semantic-button('brand', 'large');
     }
@@ -442,9 +521,11 @@
 
   &-success {
     @include semantic-button('success', 'medium');
+
     &-sm {
       @include semantic-button('success', 'small');
     }
+
     &-lg {
       @include semantic-button('success', 'large');
     }
@@ -452,9 +533,11 @@
 
   &-warning {
     @include semantic-button('warning', 'medium');
+
     &-sm {
       @include semantic-button('warning', 'small');
     }
+
     &-lg {
       @include semantic-button('warning', 'large');
     }
@@ -462,9 +545,11 @@
 
   &-error {
     @include semantic-button('error', 'medium');
+
     &-sm {
       @include semantic-button('error', 'small');
     }
+
     &-lg {
       @include semantic-button('error', 'large');
     }
@@ -472,9 +557,11 @@
 
   &-outline {
     @include semantic-button('outline', 'medium');
+
     &-sm {
       @include semantic-button('outline', 'small');
     }
+
     &-lg {
       @include semantic-button('outline', 'large');
     }
@@ -482,9 +569,11 @@
 
   &-ghost {
     @include semantic-button('ghost', 'medium');
+
     &-sm {
       @include semantic-button('ghost', 'small');
     }
+
     &-lg {
       @include semantic-button('ghost', 'large');
     }
@@ -511,6 +600,7 @@
 
 // Component-specific button classes for existing patterns
 .vh-btn {
+
   // Tour and navigation buttons
   &-next {
     @include semantic-button('brand', 'large');

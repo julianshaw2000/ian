@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import type { Map, Marker, LngLatLike } from 'maplibre-gl';
+import type { Map, Marker, LngLatLike, LngLatBounds } from 'maplibre-gl';
 import { Poi } from '../models/tour.models';
 import maplibregl from 'maplibre-gl';
 
@@ -10,6 +10,12 @@ export interface MapInitOptions {
   pitch?: number;
   bearing?: number;
   styleUrl: string;
+}
+
+export interface FitBoundsOptions {
+  padding?: number | { top: number; bottom: number; left: number; right: number };
+  maxZoom?: number;
+  duration?: number;
 }
 
 @Injectable({
@@ -79,20 +85,31 @@ export class MapService {
     visitedIds: Set<string>,
     onClick: (poi: Poi) => void
   ): Marker[] {
-    return pois.map((poi, index) => {
+    // Sort POIs so that the current one is added last (appears on top)
+    const sortedPois = [...pois].sort((a, b) => {
+      if (a.id === currentPoiId) return 1;
+      if (b.id === currentPoiId) return -1;
+      return 0;
+    });
+
+    return sortedPois.map((poi) => {
       const el = document.createElement('button');
       el.type = 'button';
       el.className = 'vh-poi-marker';
 
       const isCurrent = poi.id === currentPoiId;
       const isVisited = visitedIds.has(poi.id);
+      const index = pois.indexOf(poi);
 
       if (isCurrent) {
         el.classList.add('vh-poi-marker--current');
+        el.style.zIndex = '1000';
       } else if (isVisited) {
         el.classList.add('vh-poi-marker--visited');
+        el.style.zIndex = '100';
       } else {
         el.classList.add('vh-poi-marker--upcoming');
+        el.style.zIndex = '50';
       }
 
       el.textContent = String(index + 1);
@@ -134,6 +151,61 @@ export class MapService {
         'fill-extrusion-height': ['get', 'render_height'],
         'fill-extrusion-opacity': 0.6
       }
+    });
+  }
+
+  /**
+   * Fits the map view to show all POIs with intelligent handling for edge cases
+   * - 0 POIs: show default city centre (London) at zoom 12
+   * - 1 POI: flyTo that POI with zoom 15
+   * - 2+ POIs: fitBounds with padding and maxZoom cap
+   */
+  fitMapToPois(map: Map, pois: Poi[], options?: FitBoundsOptions): void {
+    const defaultPadding = options?.padding ?? 50;
+    const defaultMaxZoom = options?.maxZoom ?? 16;
+    const duration = options?.duration ?? 1000;
+
+    // Case 1: No POIs - show default city centre (London)
+    if (pois.length === 0) {
+      map.flyTo({
+        center: [-0.1246, 51.5007],
+        zoom: 12,
+        duration
+      });
+      return;
+    }
+
+    // Case 2: Single POI - flyTo that POI with zoom ~15
+    if (pois.length === 1) {
+      map.flyTo({
+        center: [pois[0].lng, pois[0].lat],
+        zoom: 15,
+        duration
+      });
+      return;
+    }
+
+    // Case 3: Multiple POIs - fitBounds with padding
+    const bounds = new maplibregl.LngLatBounds();
+    pois.forEach(poi => {
+      bounds.extend([poi.lng, poi.lat]);
+    });
+
+    map.fitBounds(bounds, {
+      padding: defaultPadding,
+      maxZoom: defaultMaxZoom,
+      duration
+    });
+  }
+
+  /**
+   * Fly to a specific POI location
+   */
+  flyToPoi(map: Map, poi: Poi, zoom = 15, duration = 1000): void {
+    map.flyTo({
+      center: [poi.lng, poi.lat],
+      zoom,
+      duration
     });
   }
 }

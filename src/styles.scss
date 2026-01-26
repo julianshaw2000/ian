@@ -2,6 +2,26 @@
 @use './app/shared/styles/themes' as themes;
 @use './app/shared/styles/utilities';
 
+// Import MapLibre GL styles (required for map rendering)
+@import 'maplibre-gl/dist/maplibre-gl.css';
+
+// Ensure MapLibre canvas renders properly
+.maplibregl-canvas {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.maplibregl-map {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
 // Include theming for Angular Material with custom themes
 html {
   height: 100%;

@@ -1,0 +1,21 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Brixton City History Walking Route"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-0.114, 51.4626],
+          [-0.112, 51.4621],
+          [-0.1127, 51.4635],
+          [-0.1125, 51.4629],
+          [-0.1121, 51.4615]
+        ]
+      }
+    }
+  ]
+}

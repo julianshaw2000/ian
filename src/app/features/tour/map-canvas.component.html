@@ -6,6 +6,16 @@
       mat-mini-fab
       type="button"
       color="primary"
+      (click)="recenterToPois()"
+      aria-label="Recenter map to all POIs"
+    >
+      <mat-icon>center_focus_strong</mat-icon>
+    </button>
+
+    <button
+      mat-mini-fab
+      type="button"
+      color="primary"
       (click)="locateMe()"
       aria-label="Locate me"
     >
