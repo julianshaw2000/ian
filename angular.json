@@ -37,6 +37,9 @@
             "styles": [
               "node_modules/maplibre-gl/dist/maplibre-gl.css",
               "src/styles.scss"
+            ],
+            "allowedCommonJsDependencies": [
+              "maplibre-gl"
             ]
           },
           "configurations": {
@@ -44,8 +47,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "1.5MB",
-                  "maximumError": "2MB"
+                  "maximumWarning": "2MB",
+                  "maximumError": "2.5MB"
                 },
                 {
                   "type": "anyComponentStyle",
